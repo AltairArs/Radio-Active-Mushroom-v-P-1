@@ -1,0 +1,34 @@
+@use "scss/theme";
+@use "scss/global" as g;
+
+@font-face {
+  font-family: Vag;
+  src: url("/src/assets/fonts/vag_world_bold.ttf");
+}
+
+a{
+  text-decoration: none;
+}
+
+input{
+  font-family: Vag, serif;
+  font-size: medium;
+}
+
+:root{
+  font-family: Vag, serif;
+  font-size: medium;
+}
+button{
+  font-family: Vag, serif;
+  font-size: medium;
+}
+
+body{
+  --padding: #{g.$padding};
+  --margin: #{g.$margin};
+  --borderRadius: #{g.$borderRadius};
+  --borderWidth: #{g.$borderWidth};
+  background-color: var(--c-light);
+  color: var(--c-dark);
+}

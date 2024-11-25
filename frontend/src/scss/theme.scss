@@ -1,0 +1,61 @@
+@use "color" as c;
+
+@mixin generateUtilVar($varName, $colorName, $index){
+  :root{
+    #{"--util-c-" + $varName + "--" + $colorName + "--LIGHT"}: #{c.getColorFromMap($colorName, $index, "LIGHT")};
+    #{"--util-c-" + $varName + "--" + $colorName + "--DARK"}: #{c.getColorFromMap($colorName, $index, "DARK")};
+  }
+}
+
+@mixin generateUtilVarsByColor($colorName){
+  $count: 1;
+  @each $name in c.$colorVariations{
+    @include generateUtilVar($name, $colorName, $count);
+    $count: 1 + $count;
+  }
+}
+
+@mixin generateUtilVars(){
+  @each $color, $c in c.$colors{
+    @include generateUtilVarsByColor($color);
+  }
+}
+
+@include generateUtilVars();
+
+@mixin fullTheme($colorName, $mode){
+  [themeColor=#{$colorName}][themeMode=#{$mode}]{
+    @each $name in c.$colorVariations{
+      #{"--c-" + $name}: var(#{"--util-c-" + $name + "--" + $colorName + "--" + $mode})
+    }
+  }
+
+  [themeColor=#{$colorName}] [themeMode=#{$mode}]{
+    @each $name in c.$colorVariations{
+      #{"--c-" + $name}: var(#{"--util-c-" + $name + "--" + $colorName + "--" + $mode})
+    }
+  }
+
+  [themeMode=#{$mode}] [themeColor=#{$colorName}]{
+    @each $name in c.$colorVariations{
+      #{"--c-" + $name}: var(#{"--util-c-" + $name + "--" + $colorName + "--" + $mode})
+    }
+  }
+
+  [themeMode=#{$mode}]{
+    @each $name in c.$colorVariations{
+      #{"--c-" + $name}: var(#{"--util-c-" + $name + "--" + "DEFAULT" + "--" + $mode})
+    }
+  }
+
+  [themeColor=#{$colorName}]{
+    @each $name in c.$colorVariations{
+      #{"--c-" + $name}: var(#{"--util-c-" + $name + "--" + $colorName + "--" + "LIGHT"})
+    }
+  }
+}
+
+@each $name, $color in c.$colors {
+  @include fullTheme($name, "LIGHT");
+  @include fullTheme($name, "DARK");
+}

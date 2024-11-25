@@ -1,0 +1,110 @@
+@use "sass:list";
+@use "sass:map";
+@use "sass:color";
+
+@function getRGB($color){
+  @return [
+  color.channel($color, "red", rgb),
+  color.channel($color, "green", rgb),
+  color.channel($color, "blue", rgb)
+  ]
+}
+
+@function intensity($color, $intensity){
+  $rgb: getRGB($color);
+  @return rgb(
+                  list.nth($rgb, 1) * calc($intensity / 255.0),
+                  list.nth($rgb, 2) * calc($intensity / 255.0),
+                  list.nth($rgb, 3) * calc($intensity / 255.0)
+  )
+}
+
+@function complex($color, $mainIntensity, $whiteIntensity){
+  $rgb: getRGB($color);
+  $R: 0;
+  $G: 0;
+  $B: 0;
+  @if (list.nth($rgb, 1) == 0){
+    $R: $whiteIntensity;
+  } @else {
+    $R: list.nth($rgb, 1) * calc($mainIntensity / 255.0 * (1 + $whiteIntensity / 255.0))
+  }
+  @if (list.nth($rgb, 2) == 0){
+    $G: $whiteIntensity;
+  } @else {
+    $G: list.nth($rgb, 2) * calc($mainIntensity / 255.0 * (1 + $whiteIntensity / 255.0))
+  }
+  @if (list.nth($rgb, 3) == 0){
+    $B: $whiteIntensity;
+  } @else {
+    $B: list.nth($rgb, 3) * calc($mainIntensity / 255.0 * (1 + $whiteIntensity / 255.0))
+  }
+  @return rgb($R, $G, $B)
+}
+
+@function getColor($color, $whiteMax: null){
+  @if ($whiteMax){
+    @return [
+    intensity($color, 40),
+    intensity($color, 93),
+    intensity($color, 147),
+    intensity($color, 201),
+    intensity($color, 255),
+    complex($color, 255, calc($whiteMax / 2)),
+    complex($color, 255, $whiteMax)
+    ]
+  } @else {
+    @return [
+    intensity($color, 0),
+    intensity($color, 93),
+    intensity($color, 147),
+    intensity($color, 201),
+    intensity($color, 255),
+    intensity($color, 255),
+    intensity($color, 255)
+    ]
+  }
+}
+
+$colors: (
+        'DEFAULT': getColor(white),
+        'RED': getColor(firebrick, 128),
+        'BLUE': getColor(skyblue, 200),
+        'ORANGE': getColor(orange, 128),
+        'YELLOW': getColor(gold, 128),
+        'GREEN': getColor(limegreen, 128),
+        'PURPLE': getColor(violet, 128),
+        'OLIVE': getColor(olive, 128),
+        'CORAL': getColor(coral, 128),
+        'TEAL': getColor(seagreen, 128),
+        'HAKI': getColor(khaki, 128),
+        'BISQUE': getColor(bisque, 128)
+);
+/**
+ * --c-[VARIATION]
+ */
+$colorVariations: [
+  'dark',
+  'dark-medium',
+  'medium',
+  'light-medium',
+  'light',
+  'bright-medium',
+  'bright'
+];
+
+@function getColorFromMap($colorName, $index, $mode){
+  $C: map.get($colors, $colorName);
+  @if ($mode == "LIGHT"){
+    @return list.nth($C, $index)
+  } @else if ($mode == "DARK"){
+    $newIndex: 0;
+    @if ($index > 5){
+      @return black;
+    } @else {
+      $newIndex: 6 - $index;
+    }
+    @return list.nth($C, $newIndex)
+  }
+  @error "Wrong mode: " + $mode
+}
