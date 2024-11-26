@@ -29,7 +29,7 @@ import Divider from "../components/Divider.vue";
     </div>
     <div>
       <h2>Variety of themes</h2>
-      <h3>12 possible colours in total</h3>
+      <h3>11 possible colours in total</h3>
     </div>
   </div>
 </template>

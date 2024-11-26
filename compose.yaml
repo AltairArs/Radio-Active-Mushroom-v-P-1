@@ -3,3 +3,8 @@ services:
     build: frontend/
     ports:
       - "80:80"
+
+  config-service:
+    build: config-service/
+    ports:
+      - "8888"
