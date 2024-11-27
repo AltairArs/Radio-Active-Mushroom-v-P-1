@@ -3,7 +3,7 @@
 создания приложения на микросервисной архитектуре
 с использованием GraphQL и Vue.\
 Сервис для проектирования БД.
-## 🔥Основные моменты
+## 🔥Ключевые моменты
 * 🔶Spring
 * 🔶Vue
 * 🔶GraphQL
@@ -12,6 +12,8 @@
         * 🔶Local Date Time
 * 🔶Microservices
 * 🔶JWT-Authentication
+* 🔶Eureka Server
+* 🔶Config Server
 # 📗Требования
 - [ ] Аутентификация с помощью JWT-токенов (по email и паролю)
 - [ ] Запуск через docker compose
@@ -145,6 +147,26 @@ graph TD
 
 </details>
 
+<details>
+<summary>
+<big>Authentication Service</big>
+</summary>
+
+### Spring Зависимости
+
+* JPA
+* Redis Driver
+* Web
+* Lombok
+* Actuator
+* GraphQL
+* Liquibase
+* PostgreSQL Driver
+* Eureka Client
+* Config Client
+
+</details>
+
 # 📚Документация
 # 📈Тесты
 # 🚩Запуск и развертывание
@@ -158,30 +180,43 @@ graph TD
     <tr>
         <th>Описание</th>
         <th>Название</th>
-        <th>Хост</th>
         <th>Контейнер</th>
+        <th>Хост</th>
     </tr>
-    <tr>
+    <tr align="center">
         <td>Vue (NGINX)</td>
         <td>frontend</td>
         <td colspan="2">80</td>
     </tr>
-    <tr>
+    <tr align="center">
         <td>API Gateway</td>
         <td>api-gateway</td>
         <td colspan="2">8080</td>
     </tr>
-    <tr>
+    <tr align="center">
         <td>Config Server</td>
         <td>config-service</td>
-        <td></td>
         <td>8888</td>
     </tr>
-    <tr>
+    <tr align="center">
         <td>Eureka Server</td>
         <td>discovery-service</td>
-        <td></td>
         <td>8761</td>
+    </tr>
+    <tr align="center">
+        <td>Redis</td>
+        <td>redis-service</td>
+        <td>6379</td>
+    </tr>
+    <tr align="center">
+        <td>PostgreSQL</td>
+        <td>postgres-service</td>
+        <td>5432</td>
+    </tr>
+    <tr align="center">
+        <td>Authentication Service</td>
+        <td>authentication-service</td>
+        <td>8080</td>
     </tr>
 </table>
 
