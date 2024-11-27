@@ -7,10 +7,6 @@ spring:
     active: native
   cloud:
     config:
-      discovery:
-        enabled: true
-        #configserver
-        service-id: config-service
       server:
         native:
           search-locations: classpath:/config

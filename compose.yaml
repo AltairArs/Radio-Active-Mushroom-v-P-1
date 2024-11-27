@@ -3,6 +3,8 @@ services:
     build: frontend/
     ports:
       - "80:80"
+    depends_on:
+      - api-gateway
 
   config-service:
     build: config-service/
@@ -15,3 +17,10 @@ services:
       - "8761"
     depends_on:
       - config-service
+
+  api-gateway:
+    build: api-gateway/
+    ports:
+      - "8080:8080"
+    depends_on:
+      - discovery-service
