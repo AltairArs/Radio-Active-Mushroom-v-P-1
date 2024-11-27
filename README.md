@@ -14,6 +14,7 @@
 * 🔶JWT-Authentication
 * 🔶Eureka Server
 * 🔶Config Server
+* 🔶API Gateway
 # 📗Требования
 - [ ] Аутентификация с помощью JWT-токенов (по email и паролю)
 - [ ] Запуск через docker compose
@@ -168,6 +169,8 @@ graph TD
 </details>
 
 # 📚Документация
+Eureka Server доступен по ссылке\
+http://localhost:8080/
 # 📈Тесты
 # 🚩Запуск и развертывание
 Для запуска на компьютере должен быть установлен и запущен Docker.
