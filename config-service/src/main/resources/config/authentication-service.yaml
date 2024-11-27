@@ -6,3 +6,27 @@ eureka:
       defaultZone: http://discovery-service:8761/eureka
   instance:
     preferIpAddress: true
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      dll-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database: postgresql
+  datasource:
+    url: jdbc:postgresql://postgres-service:5432/radio-active-mushroom-DB
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  data:
+    redis:
+      host: redis-service
+      port: 6379
+jwt:
+  signing:
+    key: "b3blbnnzac1rzxktdjeaaaaabg5vbmuaaaaebm9uzqaa"
+  expiration:
+    # 3 hours in seconds
+    access: 10800
+    # 7 days in seconds
+    refresh: 604800

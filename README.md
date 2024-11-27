@@ -155,6 +155,7 @@ graph TD
 ### Spring Зависимости
 
 * JPA
+* Security
 * Redis Driver
 * Web
 * Lombok
