@@ -16,10 +16,10 @@ public class GatewayConfiguration {
         return GatewayRouterFunctions
                 .route("eureka-service")
                 .route(
-                        RequestPredicates.path("/eureka"),
+                        RequestPredicates.path("/**"),
                         HandlerFunctions.http("http://discovery-service:8761")
                 )
-                .before(BeforeFilterFunctions.rewritePath("/eureka", "/"))
+                //.before(BeforeFilterFunctions.rewritePath("/eureka", "/"))
                 .build();
     }
 }

@@ -116,6 +116,7 @@ graph TD
 ### Spring Зависимости
 
 * Cloud Config Server
+* Actuator
 
 </details>
 
@@ -127,6 +128,7 @@ graph TD
 ### Spring Зависимости
 
 * Eureka Server
+* Cloud Config Client
 
 </details>
 
@@ -148,14 +150,40 @@ graph TD
 # 🚩Запуск и развертывание
 Для запуска на компьютере должен быть установлен и запущен Docker.
 
-|   **Сервис**   |     Название      | **Порт** | **.........** |
-|:--------------:|:-----------------:|:--------:|:-------------:|
-| **..........** | **.............** | **Хост** | **Контейнер** |
-| ============== | ================= | ======== | ============= |
-|  Vue (NGINX)   |     frontend      |    80    |      80       |
-|  API Gateway   |    api-gateway    |   8080   |     8080      |
-| Config Service |  config-service   |          |     8888      |
-| Eureka Service | discovery-service |          |     8761      |
+<table>
+    <tr>
+        <th colspan="2">Сервис</th>
+        <th colspan="2">Порт</th>
+    </tr>
+    <tr>
+        <th>Описание</th>
+        <th>Название</th>
+        <th>Хост</th>
+        <th>Контейнер</th>
+    </tr>
+    <tr>
+        <td>Vue (NGINX)</td>
+        <td>frontend</td>
+        <td colspan="2">80</td>
+    </tr>
+    <tr>
+        <td>API Gateway</td>
+        <td>api-gateway</td>
+        <td colspan="2">8080</td>
+    </tr>
+    <tr>
+        <td>Config Server</td>
+        <td>config-service</td>
+        <td></td>
+        <td>8888</td>
+    </tr>
+    <tr>
+        <td>Eureka Server</td>
+        <td>discovery-service</td>
+        <td></td>
+        <td>8761</td>
+    </tr>
+</table>
 
 Первый запуск (команды выполняются в директории с `compose.yaml`)
 ```bat
