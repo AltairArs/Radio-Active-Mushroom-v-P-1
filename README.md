@@ -174,49 +174,62 @@ graph TD
 
 <table>
     <tr>
-        <th colspan="2">Сервис</th>
+        <th colspan="3">Сервис</th>
         <th colspan="2">Порт</th>
     </tr>
     <tr>
         <th>Описание</th>
         <th>Название</th>
+        <th>Тип</th>
         <th>Контейнер</th>
         <th>Хост</th>
     </tr>
     <tr align="center">
         <td>Vue (NGINX)</td>
         <td>frontend</td>
+        <td>UI</td>
         <td colspan="2">80</td>
     </tr>
     <tr align="center">
         <td>API Gateway</td>
         <td>api-gateway</td>
+        <td>Infrastructure</td>
         <td colspan="2">8080</td>
     </tr>
     <tr align="center">
         <td>Config Server</td>
         <td>config-service</td>
+        <td>Infrastructure</td>
         <td>8888</td>
+        <td></td>
     </tr>
     <tr align="center">
         <td>Eureka Server</td>
         <td>discovery-service</td>
+        <td>Infrastructure</td>
         <td>8761</td>
+        <td></td>
     </tr>
     <tr align="center">
         <td>Redis</td>
         <td>redis-service</td>
+        <td>Database</td>
         <td>6379</td>
+        <td></td>
     </tr>
     <tr align="center">
         <td>PostgreSQL</td>
         <td>postgres-service</td>
+        <td>Database</td>
         <td>5432</td>
+        <td></td>
     </tr>
     <tr align="center">
         <td>Authentication Service</td>
         <td>authentication-service</td>
+        <td>Work</td>
         <td>8080</td>
+        <td></td>
     </tr>
 </table>
 
