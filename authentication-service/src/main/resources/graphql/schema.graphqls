@@ -1,0 +1,46 @@
+scalar LocalDateTime
+
+directive @Pattern(message: String! = "Поле должно быть формата: example@example.example", regexp: String! = "\\S+@\\S+\\.\\S+") on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+directive @Size(min: Int! = 8, max: Int! = 21000, message: String! = "Поле должно состоять из минимум 8 символов") on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+
+type User{
+    id: ID!
+    email: String!
+    nickname: String!
+    name: String
+    surname: String
+    createdAt: LocalDateTime!
+    lastLogin: LocalDateTime
+}
+
+type JwtResponse{
+    accessToken: String!
+    refreshToken: String!
+}
+
+input RegisterInput{
+    email: String! @Pattern
+    nickname: String! @Size(min: 3, message: "ПОле должно состоять из минимум 3 символов")
+    password: String! @Size
+    name: String
+    surname: String
+}
+
+input AuthenticateInput{
+    email: String
+    nickname: String
+    password: String!
+}
+
+type Query{
+    currentUser: User!
+}
+
+type Mutation{
+    authenticate(input: AuthenticateInput!): JwtResponse!
+    register(input: RegisterInput!): JwtResponse!
+    refreshToken(refreshToken: String!): JwtResponse!
+
+    #None
+    logout: Int
+}

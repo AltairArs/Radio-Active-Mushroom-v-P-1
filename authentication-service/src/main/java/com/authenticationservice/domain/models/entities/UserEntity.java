@@ -69,10 +69,9 @@ public class UserEntity implements UserDetails {
     @Column(name = "theme_mode", nullable = false, length = 6)
     private ThemeModeEnum themeMode = ThemeModeEnum.LIGHT;
 
-    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false, length = 20)
-    private UserRoleEnum role = UserRoleEnum.USER;
+    private UserRoleEnum role;
 
     @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
