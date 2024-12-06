@@ -1,34 +1,30 @@
-@use "scss/theme";
-@use "scss/global" as g;
+@use "scss/themes" as t;
 
-@font-face {
-  font-family: Vag;
-  src: url("/src/assets/fonts/vag_world_bold.ttf");
+@include t.generateColors();
+@include t.applyingColors();
+
+@font-face{
+  font-family: "VAG";
+  src:url("/src/assets/fonts/vagroundcyrillic.ttf");
 }
 
-a{
-  text-decoration: none;
+* {
+  font-family: "VAG";
 }
 
-input{
-  font-family: Vag, serif;
-  font-size: medium;
+h1, h2, h3, h4, h5, h6 {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 :root{
-  font-family: Vag, serif;
-  font-size: medium;
-}
-button{
-  font-family: Vag, serif;
-  font-size: medium;
+  --padding: 10px;
+  --margin: 10px;
+  --border-radius: 10px;
+  --border-width: 2px;
 }
 
 body{
-  --padding: #{g.$padding};
-  --margin: #{g.$margin};
-  --borderRadius: #{g.$borderRadius};
-  --borderWidth: #{g.$borderWidth};
-  background-color: var(--c-light);
-  color: var(--c-dark);
+  background-color: var(--c-back-1);
+  color: var(--c-text);
 }

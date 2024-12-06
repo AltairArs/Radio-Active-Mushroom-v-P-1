@@ -1,35 +1,16 @@
-import MainView from "./views/MainView.vue";
 import {createRouter, createWebHistory} from "vue-router";
-import LoginView from "./views/LoginView.vue";
-import RegistrationView from "./views/RegistrationView.vue";
-import ProfileView from "./views/ProfileView.vue";
+import MainView from "./components/views/MainView.vue";
 
 const routes = [
     {
-        path: '/',
+        path: "/",
+        name: "main",
         component: MainView,
-        name: 'main',
         meta: {
             title: "Main"
         }
-    },
-    {
-        path: '/accounts/login',
-        name: 'login',
-        component: LoginView,
-        meta: {
-            title: "Login"
-        }
-    },
-    {
-        path: '/accounts/register',
-        name: 'register',
-        component: RegistrationView,
-        meta: {
-            title: "Registration"
-        }
-    },
-    {
+    }
+   /* {
         path: '/accounts/profile/:username',
         name: 'profile',
         component: ProfileView,
@@ -37,7 +18,7 @@ const routes = [
             title: '$username$',
             pathVariables: ['username']
         }
-    }
+    }*/
 ]
 
 const router = createRouter({
