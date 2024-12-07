@@ -110,6 +110,10 @@ $COLORS: (
 @mixin createColors(){
   :root {
     @include generateUtilColors();
+    --themeMode: "LIGHT";
+    --themeColor: "BLUE";
+    --containerType: "NONE";
+    --subContainerType: "NONE";
   }
 
   @each $colorName, $colorValue in $COLORS{

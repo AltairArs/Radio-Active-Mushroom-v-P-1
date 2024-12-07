@@ -4,7 +4,7 @@ import Container from "../containers/Container.vue";
 </script>
 
 <template>
-  <Container c-type="NAVBAR" horizontal margin="margin-bottom" padding>
+  <Container container-type="NAVBAR" padding>
     <h1>RAM</h1>
   </Container>
 </template>
