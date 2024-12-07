@@ -1,11 +1,8 @@
 <script setup lang="ts">
-
-import Container from "../containers/Container.vue";
-import Divider from "../info/Divider.vue";
-import Icon from "../info/Icon.vue";
 </script>
 
 <template>
+  <!--
   <Container align="top" horizontal c-type="PRIMARY" margin="margin-bottom" border-radius padding>
     <Container align="top" c-type="SECONDARY" padding border-radius border>
       <h1>Radio Active Mushroom</h1>
@@ -48,6 +45,7 @@ import Icon from "../info/Icon.vue";
       <h3>11 possible colours in total</h3>
     </Container>
   </Container>
+  -->
 </template>
 
 <style scoped>

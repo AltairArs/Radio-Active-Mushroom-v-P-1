@@ -1,33 +1,14 @@
 <script setup lang="ts">
-import NavItem from "./NavItem.vue";
-import Switch from "../inputs/Switch.vue";
-
-function changeMode(selected: Boolean): void{
-  let body: HTMLElement = document.body;
-  if (selected){
-    body.setAttribute('themeMode', 'LIGHT');
-  } else {
-    body.setAttribute('themeMode', 'DARK');
-  }
-}
-
-function getMode(): string|null{
-  return document.body.getAttribute('themeMode');
-}
+import Container from "../containers/Container.vue";
 
 </script>
 
 <template>
-  <nav class="nav">
-    <NavItem label="Main" name="main"/>
-    <NavItem icon="login" label="Login" name="login"/>
-    <NavItem icon="login" label="Registration" name="register"/>
-    <Switch on-icon="theme" off-icon="theme" off-value="Dark" on-value="Light" @input="changeMode" :init="getMode() == 'LIGHT'"/>
-  </nav>
+  <Container c-type="NAVBAR" horizontal margin="margin-bottom" padding>
+    <h1>RAM</h1>
+  </Container>
 </template>
 
-<style scoped lang="scss">
-nav.nav{
-  display: flex;
-}
+<style scoped>
+
 </style>

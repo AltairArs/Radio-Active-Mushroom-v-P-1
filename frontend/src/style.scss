@@ -1,7 +1,6 @@
 @use "scss/themes" as t;
 
-@include t.generateColors();
-@include t.applyingColors();
+@include t.createColors();
 
 @font-face{
   font-family: "VAG";

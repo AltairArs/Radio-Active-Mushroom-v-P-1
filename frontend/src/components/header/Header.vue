@@ -1,26 +1,26 @@
 <script setup lang="ts">
+
 import HeaderContent from "./HeaderContent.vue";
 </script>
 
 <template>
-<div class="header">
-  <HeaderContent/>
-</div>
-<div>
-  <HeaderContent/>
-</div>
+  <div class="header-content-fixed">
+    <HeaderContent/>
+  </div>
+  <div class="header-content">
+    <HeaderContent/>
+  </div>
 </template>
 
-<style scoped lang="scss">
-$backColor: var(--c-medium);
-
-div.header{
-  background-color: $backColor;
+<style scoped>
+div.header-content-fixed{
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  border-radius: 0 0 var(--borderRadius) var(--borderRadius);
-  z-index: 1;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+}
+div.header-content{
+  opacity: 0;
 }
 </style>

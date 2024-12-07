@@ -1,89 +1,108 @@
 <script setup lang="ts">
-defineProps({
+import { onMounted, ref } from 'vue'
+const props = defineProps({
   /**
    * Maybe:
-   * top,
-   * top-right,
-   * right,
-   * bottom-right,
-   * bottom,
-   * bottom-left,
-   * left,
-   * top-left,
-   * center
-   *
-   * @default top-left
-   */
-  align: {
-    type: String,
-    required: false,
-    default: "top-left"
-  },
-  /**
-   * Maybe:
-   * PRIMARY
-   * SECONDARY
-   * TERTIARY
-   * NONE
-   * NAVBAR
-   * ERROR
-   * TOOLTIP
+   * PRIMARY,
+   * SECONDARY,
+   * TERTIARY,
+   * NONE,
+   * NAVBAR,
+   * ERROR,
+   * TOOLTIP,
    * MENU
    *
    * @default null
    */
-  cType: {
+  containerType: {
     type: String,
     required: false,
     default: null
   },
-  horizontal: {
-    type: Boolean,
+  /**
+   * Maybe:
+   * LIGHT,
+   * DARK
+   *
+   * @default null
+   */
+  themeMode: {
+    type: String,
     required: false,
-    default: false
-  },
-  padding: {
-    type: Boolean,
-    required: false,
-    default: false
-  },
-  border: {
-    type: Boolean,
-    required: false,
-    default: false
-  },
-  borderRadius: {
-    type: Boolean,
-    required: false,
-    default: false
+    default: null
   },
   /**
    * Maybe:
-   * margin,
-   * margin-top,
-   * margin-left,
-   * margin-bottom,
-   * margin-right
+   * RED,
+   * BLUE,
+   * YELLOW,
+   * GREEN,
+   * PURPLE,
+   * OLIVE,
+   * CORAL,
+   * TEAL,
+   * HAKI,
+   * BISQUE
    *
-   * can be more than one with a space
-   *
-   * @example margin-left margin-top
-   *
-   * @default <Empty>
+   * @default null
    */
-  margin: {
+  themeColor: {
     type: String,
     required: false,
-    default: ''
+    default: null
+  },
+  /**
+   * Maybe:
+   * INPUT,
+   * INFO,
+   * NONE
+   *
+   * @default null
+   */
+  subContainerType: {
+    type: String,
+    required: false,
+    default: null
   }
 });
+
+const component = ref<Element | null>(null)
+
+let _themeMode = "";
+let _themeColor = "";
+let _containerType = "";
+let _subContainerType = "";
+
+function getNan(value, _default?){
+  if (value == null){
+    return _default;
+  } else {
+    return value;
+  }
+}
+
+function setParams(): void{
+  if (component.value != null){
+    let style = getComputedStyle(component.value);
+    _themeMode = getNan(props.themeMode, style.getPropertyValue("--themeMode"));
+    _themeColor = getNan(props.themeColor, style.getPropertyValue("--themeColor"));
+    _containerType = getNan(props.containerType, style.getPropertyValue("--containerType"));
+    _subContainerType = getNan(props.subContainerType, style.getPropertyValue("--subContainerType"));
+    component.value.setAttribute("themeMode", _themeMode);
+    component.value.setAttribute("themeColor", _themeColor);
+    component.value.setAttribute("containerType", _containerType);
+    component.value.setAttribute("subContainerType", _subContainerType);
+  }
+}
+
+onMounted(() =>{
+  setParams();
+});
+
 </script>
 
 <template>
-  <div v-if="cType" :containerType="cType" :class="'container ' + align + (horizontal ? ' horizontal': '') + (padding ? ' padding': '') + (border ? ' border': '') + (borderRadius ? ' border-radius': '') + ' ' + margin">
-    <slot></slot>
-  </div>
-  <div v-if="!cType" :class="'container ' + align + (horizontal ? ' horizontal': '') + (padding ? ' padding': '') + (border ? ' border': '') + (borderRadius ? ' border-radius': '') + ' ' + margin">
+  <div ref="component" :themeMode="_themeMode" :themeColor="_themeColor" :containerType="_containerType" :subContainerType="_subContainerType" :class="'container '">
     <slot></slot>
   </div>
 </template>
@@ -92,61 +111,5 @@ defineProps({
 div.container{
   color: var(--c-text);
   background-color: var(--c-back-1);
-  &.center{
-    margin: auto;
-  }
-  &.top{
-    margin: 0 auto auto auto;
-  }
-  &.top-right{
-    margin: 0 0 auto auto;
-  }
-  &.right{
-    margin: auto 0 auto auto;
-  }
-  &.bottom-right{
-    margin: auto 0 0 auto;
-  }
-  &.bottom{
-    margin: auto auto 0 auto;
-  }
-  &.bottom-left{
-    margin: auto auto 0 0;
-  }
-  &.top-left{
-    margin: 0 auto auto 0;
-  }
-  &.left{
-    margin: auto auto auto 0;
-  }
-  &.border{
-    border-color: var(--c-border);
-    border-style: solid;
-    border-width: var(--border-width);
-  }
-  &.padding{
-    padding: var(--padding);
-  }
-  &.border-radius{
-    border-radius: var(--border-radius);
-  }
-  &.horizontal{
-    display: flex;
-  }
-  &.margin{
-    margin: var(--margin);
-  }
-  &.margin-top{
-    margin-top: var(--margin);
-  }
-  &.margin-bottom{
-    margin-bottom: var(--margin);
-  }
-  &.margin-left{
-    margin-left: var(--margin);
-  }
-  &.margin-right{
-    margin-right: var(--margin);
-  }
 }
 </style>

@@ -2,39 +2,58 @@
 @use "sass:map";
 @use "sass:list";
 
-$hueStepRotation: 20deg;
+@function rotate($color, $angle){
+  @return color.adjust($color, $hue: $angle);
+}
 
-@function createContainerColors($color){
+@function setLight($color, $lightness){
+  @return color.change($color, $lightness: $lightness);
+}
+
+@function invertLight($color){
+  @return color.change($color, $lightness: (100% - color.channel($color, "lightness", hsl)));
+}
+
+@function createElements($color){
   @return (
-          "text": color.change($color, $lightness: 20%),
-          "border": color.change($color, $lightness: 20%),
-          "mark": color.change($color, $lightness: 35%),
-          "shadow": color.change($color, $lightness: 35%),
-          "icon": color.change($color, $lightness: 20%),
+          "text": setLight($color, 20%),
+          "border": setLight($color, 20%),
+          "mark": setLight($color, 35%),
+          "shadow": setLight($color, 35%),
+          "icon": setLight($color, 20%),
           "back-1": $color,
-          "back-2": color.change($color, $lightness: 70%),
-          "back-3": color.change($color, $lightness: 85%)
+          "back-2": setLight($color, 70%),
+          "back-3": setLight($color, 85%)
   );
+}
+
+@function createSubContainers($color){
+  @return (
+          "NONE": createElements($color),
+          "INPUT": createElements(rotate($color, 20deg)),
+          "INFO": createElements(rotate($color, -20deg))
+  )
 }
 
 @function createContainers($color){
   @return (
-          "PRIMARY": createContainerColors($color),
-          "SECONDARY": createContainerColors(color.adjust($color, $hue: $hueStepRotation)),
-          "TERTIARY": createContainerColors(color.adjust($color, $hue: -$hueStepRotation)),
-          "NONE": createContainerColors(color.adjust($color, $hue: $hueStepRotation * 2)),
-          "NAVBAR": createContainerColors(color.adjust($color, $hue: -$hueStepRotation * 2)),
-          "TOOLTIP": createContainerColors(color.adjust($color, $hue: $hueStepRotation * 3)),
-          "MENU": createContainerColors(color.adjust($color, $hue: -$hueStepRotation * 3)),
-          "ERROR": createContainerColors(color.adjust($color, $hue: 90deg))
+          "NONE": createSubContainers(color.adjust($color, $hue: 40deg)),
+          "PRIMARY": createSubContainers($color),
+          "SECONDARY": createSubContainers(color.adjust($color, $hue: 20deg)),
+          "TERTIARY": createSubContainers(color.adjust($color, $hue: -20deg)),
+          "NAVBAR": createSubContainers(color.adjust($color, $hue: -40deg)),
+          "TOOLTIP": createSubContainers(color.adjust($color, $hue: 60deg)),
+          "MENU": createSubContainers(color.adjust($color, $hue: -60deg)),
+          "ERROR": createSubContainers(color.adjust($color, $hue: 90deg))
   )
 }
 
-@function invertLightness($color){
-  @return color.change($color, $lightness: (100% - color.channel($color, "lightness", hsl)));
-}
+$THEME_MODES: [
+  "LIGHT",
+  "DARK"
+];
 
-$themeColors: (
+$COLORS: (
         "RED": createContainers(firebrick),
         "BLUE": createContainers(skyblue),
         "ORANGE": createContainers(orange),
@@ -48,49 +67,63 @@ $themeColors: (
         "BISQUE": createContainers(bisque)
 );
 
-@function getColor($colorName, $containerName, $typeColorName, $themeMode){
-  $colorValue: map.get($themeColors, $colorName);
+@function getColor($colorName, $containerName, $subContainerName, $typeElementName, $themeMode){
+  $colorValue: map.get($COLORS, $colorName);
   $containerValue: map.get($colorValue, $containerName);
-  $color: map.get($containerValue, $typeColorName);
-  @if ($themeMode == "LIGHT"){
-    @return $color;
+  $subContainerValue: map.get($containerValue, $subContainerName);
+  $typeElementValue: map.get($subContainerValue, $typeElementName);
+  @if ($themeMode == "DARK"){
+    @return invertLight($typeElementValue);
   } @else {
-    @return invertLightness($color);
+    @return $typeElementValue;
   }
 }
 
-@mixin generateColors(){
-  :root{
-    @each $colorName, $colorValue in $themeColors{
-      @each $containerName, $containerValue in $colorValue{
-        @each $typeColorName, $typeColorValue in $containerValue{
-          #{"--util-c-" + $colorName + "--" + $containerName + "--" + $typeColorName + "--LIGHT"}: #{getColor($colorName, $containerName, $typeColorName, "LIGHT")};
-          #{"--util-c-" + $colorName + "--" + $containerName + "--" + $typeColorName + "--DARK"}: #{getColor($colorName, $containerName, $typeColorName, "DARK")};
+@function usableVariableName($typeElementName){
+  @return "--c-" + $typeElementName;
+}
+
+@function utilVariableName($colorName, $containerName, $subContainerName, $typeElementName, $themeMode){
+  @return "--util-c-" + $colorName + "--" + $containerName + "--" + $subContainerName + "--" + $typeElementName + "--" + $themeMode;
+}
+
+@mixin generateUtilColors(){
+  @each $colorName, $colorValue in $COLORS{
+    @each $containerName, $containerValue in $colorValue{
+      @each $subContainerName, $subContainerValue in $containerValue{
+        @each $typeElementName, $typeElementValue in $subContainerValue{
+          @each $themeMode in $THEME_MODES{
+            #{utilVariableName($colorName, $containerName, $subContainerName, $typeElementName, $themeMode)}: #{getColor($colorName, $containerName, $subContainerName, $typeElementName, $themeMode)};
+          }
         }
       }
     }
   }
 }
 
-@mixin applyColors($colorName, $containerName, $themeMode){
-  @each $typeColorName, $typeColorValue in createContainerColors(transparent){
-    #{"--c-" + $typeColorName}: var(#{"--util-c-" + $colorName + "--" + $containerName + "--" + $typeColorName + "--" + $themeMode});
+@mixin applyColors($colorName, $containerName, $subContainerName, $themeMode){
+  @each $typeElementName, $typeElementValue in createElements(transparent){
+    #{usableVariableName($typeElementName)}: var(#{utilVariableName($colorName, $containerName, $subContainerName, $typeElementName, $themeMode)});
   }
 }
 
-@mixin applyingColors(){
-  @each $colorName, $colorValue in $themeColors{
+@mixin createColors(){
+  :root {
+    @include generateUtilColors();
+  }
+
+  @each $colorName, $colorValue in $COLORS{
     @each $containerName, $containerValue in $colorValue{
-      @each $themeMode in ["LIGHT", "DARK"]{
-
-        [themeColor=#{$colorName}][themeMode=#{$themeMode}][containerType=#{$containerName}]{
-          @include applyColors($colorName, $containerName, $themeMode);
+      @each $subContainerName, $subContainerValue in $containerValue{
+        @each $themeMode in $THEME_MODES{
+          [themeMode=#{$themeMode}][themeColor=#{$colorName}][containerType=#{$containerName}][subContainerType=#{$subContainerName}]{
+            @include applyColors($colorName, $containerName, $subContainerName, $themeMode);
+            --themeMode: #{$themeMode};
+            --themeColor: #{$colorName};
+            --containerType: #{$containerName};
+            --subContainerType: #{$subContainerName};
+          }
         }
-
-        [themeColor=#{$colorName}][themeMode=#{$themeMode}] [containerType=#{$containerName}]{
-          @include applyColors($colorName, $containerName, $themeMode);
-        }
-
       }
     }
   }
