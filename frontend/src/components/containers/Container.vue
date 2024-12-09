@@ -103,23 +103,57 @@ const props = defineProps({
     type: Boolean,
     required: false,
     default: null
+  },
+  /**
+   * Maybe:
+   * top-left,
+   * top,
+   * top-right,
+   * right,
+   * bottom-right,
+   * bottom,
+   * bottom-left,
+   * left,
+   * center
+   *
+   * @default top-left
+   */
+  selfAlign: {
+    type: String,
+    required: false,
+    default: "top-left"
+  },
+  marginBottom: {
+    type: String,
+    required: false,
+    default: null
+  },
+  marginLeft: {
+    type: String,
+    required: false,
+    default: null
+  },
+  marginTop: {
+    type: String,
+    required: false,
+    default: null
+  },
+  marginRight: {
+    type: String,
+    required: false,
+    default: null
+  },
+  changeThemeOnHover: {
+    type: Boolean,
+    required: false,
+    default: false
+  },
+  changeThemeOnClick: {
+    type: Boolean,
+    required: false,
+    default: false
   }
 });
-
-const component = ref<Element | null>(null)
-
-let _themeMode = "";
-let _themeColor = "";
-let _containerType = "";
-let _subContainerType = "";
-
-function getValueOrDefault(value: string, _default: string): string{
-  if (value == null){
-    return _default;
-  } else {
-    return value;
-  }
-}
 
 function getContainerTypeFromParent(parentValue: string): string{
   switch (parentValue){
@@ -138,20 +172,70 @@ function getContainerTypeFromParent(parentValue: string): string{
   }
 }
 
+function getValueOrDefault(value: string | null, _default: string): string{
+  if (value == null){
+    return _default;
+  } else {
+    return value;
+  }
+}
+
+const component = ref<Element | null>(null);
+
+const _themeMode = ref("");
+const _themeColor = ref("");
+const _containerType = ref("");
+const _subContainerType = ref("");
+
+const overrideThemeMode = ref(props.themeMode != null);
+const overrideThemeColor = ref(props.themeColor != null);
+const overrideContainerType = ref(props.containerType != null);
+const overrideSubContainerType = ref(props.subContainerType != null);
+
 function setParams(): void{
   if (component.value != null){
     let style = getComputedStyle(component.value);
-    _themeMode = getValueOrDefault(props.themeMode, style.getPropertyValue("--themeMode"));
-    _themeColor = getValueOrDefault(props.themeColor, style.getPropertyValue("--themeColor"));
-    _containerType = getValueOrDefault(props.containerType, style.getPropertyValue("--containerType"));
-    _subContainerType = getValueOrDefault(props.subContainerType, style.getPropertyValue("--subContainerType"));
-    if (_containerType == "AUTO"){
-      _containerType = getContainerTypeFromParent(style.getPropertyValue("--containerType"));
+
+    let __themeMode = getValueOrDefault(props.themeMode, style.getPropertyValue("--themeMode"));
+    let __themeColor = getValueOrDefault(props.themeColor, style.getPropertyValue("--themeColor"));
+    let __containerType = getValueOrDefault(props.containerType, style.getPropertyValue("--containerType"));
+    let __subContainerType = getValueOrDefault(props.subContainerType, style.getPropertyValue("--subContainerType"));
+    if (__containerType == "AUTO"){
+      __containerType = getContainerTypeFromParent(style.getPropertyValue("--containerType"));
+      console.log(__containerType);
     }
-    component.value.setAttribute("themeMode", _themeMode);
-    component.value.setAttribute("themeColor", _themeColor);
-    component.value.setAttribute("containerType", _containerType);
-    component.value.setAttribute("subContainerType", _subContainerType);
+
+    _themeMode.value = __themeMode;
+    _themeColor.value = __themeColor;
+    _containerType.value = __containerType;
+    _subContainerType.value = __subContainerType;
+
+    component.value.setAttribute("themeMode", __themeMode);
+    component.value.setAttribute("themeColor", __themeColor);
+    component.value.setAttribute("containerType", __containerType);
+    component.value.setAttribute("subContainerType", __subContainerType);
+  }
+}
+
+function onChange(): void{
+  let attr = _themeMode.value;
+  if (attr == "LIGHT"){
+    attr = "DARK";
+  } else {
+    attr = "LIGHT";
+  }
+  _themeMode.value = attr;
+}
+
+function onHovered(): void{
+  if (props.changeThemeOnHover){
+    onChange();
+  }
+}
+
+function onClicked(): void{
+  if (props.changeThemeOnClick){
+    onChange();
   }
 }
 
@@ -162,7 +246,11 @@ nextTick(() =>{
 </script>
 
 <template>
-  <div ref="component" class="container" :padding="padding" :border="border" :borderRadius="borderRadius" :horizontal="horizontal">
+  <div ref="component" class="container" :padding="padding" :border="border" :borderRadius="borderRadius" :horizontal="horizontal" :selfAlign="selfAlign"
+       :marginBottom="marginBottom" :marginLeft="marginLeft" :marginTop="marginTop" :marginRight="marginRight" @mouseenter="onHovered()"
+       @mouseleave="onHovered()" :themeMode="_themeMode" :themeColor="_themeColor" :containerType="_containerType" :subContainerType="_subContainerType"
+       :overrideThemeMode="overrideThemeMode" :overrideThemeColor="overrideThemeColor" :overrideContainerType="overrideContainerType"
+       :overrideSubContainerType="overrideSubContainerType" @mousedown="onClicked()" @mouseup="onClicked()">
     <slot></slot>
   </div>
 </template>
@@ -186,6 +274,58 @@ div.container{
 
   &[horizontal]{
     display: flex;
+  }
+
+  &[selfAlign="top-left"]{
+    margin: 0 auto auto 0;
+  }
+
+  &[selfAlign="top"]{
+    margin: 0 auto auto auto;
+  }
+
+  &[selfAlign="top-right"]{
+    margin: 0 0 auto auto;
+  }
+
+  &[selfAlign="right"]{
+    margin: auto 0 auto auto;
+  }
+
+  &[selfAlign="bottom-right"]{
+    margin: auto 0 0 auto;
+  }
+
+  &[selfAlign="bottom"]{
+    margin: auto auto 0 auto;
+  }
+
+  &[selfAlign="bottom-left"]{
+    margin: auto auto 0 0;
+  }
+
+  &[selfAlign="left"]{
+    margin: auto auto auto 0;
+  }
+
+  &[selfAlign="center"]{
+    margin: auto;
+  }
+
+  &[marginBottom]{
+    margin-bottom: calc(var(--margin) * v-bind(marginBottom));
+  }
+
+  &[marginLeft]{
+    margin-left: calc(var(--margin) * v-bind(marginLeft));
+  }
+
+  &[marginTop]{
+    margin-left: calc(var(--margin) * v-bind(marginTop));
+  }
+
+  &[marginRight]{
+    margin-left: calc(var(--margin) * v-bind(marginRight));
   }
 }
 </style>

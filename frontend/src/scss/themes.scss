@@ -110,22 +110,33 @@ $COLORS: (
 @mixin createColors(){
   :root {
     @include generateUtilColors();
-    --themeMode: "LIGHT";
-    --themeColor: "BLUE";
-    --containerType: "NONE";
-    --subContainerType: "NONE";
   }
 
   @each $colorName, $colorValue in $COLORS{
     @each $containerName, $containerValue in $colorValue{
       @each $subContainerName, $subContainerValue in $containerValue{
         @each $themeMode in $THEME_MODES{
-          [themeMode=#{$themeMode}][themeColor=#{$colorName}][containerType=#{$containerName}][subContainerType=#{$subContainerName}]{
+          body[themeMode=#{$themeMode}][themeColor=#{$colorName}][containerType=#{$containerName}][subContainerType=#{$subContainerName}]{
             @include applyColors($colorName, $containerName, $subContainerName, $themeMode);
             --themeMode: #{$themeMode};
             --themeColor: #{$colorName};
             --containerType: #{$containerName};
             --subContainerType: #{$subContainerName};
+          }
+          div[themeMode=#{$themeMode}][themeColor=#{$colorName}][containerType=#{$containerName}][subContainerType=#{$subContainerName}]{
+            @include applyColors($colorName, $containerName, $subContainerName, $themeMode);
+            &[overrideThemeMode=true]{
+              --themeMode: #{$themeMode};
+            }
+            &[overrideThemeColor=true]{
+              --themeColor: #{$colorName};
+            }
+            &[overrideContainerType=true]{
+              --containerType: #{$containerName};
+            }
+            &[overrideSubContainerType=true]{
+              --subContainerType: #{$subContainerName};
+            }
           }
         }
       }

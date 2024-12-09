@@ -18,7 +18,7 @@ div.header-content-fixed{
   top: 0;
   left: 0;
   right: 0;
-  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  z-index: 9999;
 }
 div.header-content{
   opacity: 0;
