@@ -152,6 +152,21 @@ const props = defineProps({
     type: Boolean,
     required: false,
     default: false
+  },
+  /**
+   * Maybe:
+   * one-color,
+   * one-mark,
+   * two-mark,
+   * linear,
+   * conic
+   *
+   * @default one-color
+   */
+  backgroundT: {
+    type: String,
+    required: false,
+    default: "one-color"
   }
 });
 
@@ -202,7 +217,6 @@ function setParams(): void{
     let __subContainerType = getValueOrDefault(props.subContainerType, style.getPropertyValue("--subContainerType"));
     if (__containerType == "AUTO"){
       __containerType = getContainerTypeFromParent(style.getPropertyValue("--containerType"));
-      console.log(__containerType);
     }
 
     _themeMode.value = __themeMode;
@@ -250,7 +264,7 @@ nextTick(() =>{
        :marginBottom="marginBottom" :marginLeft="marginLeft" :marginTop="marginTop" :marginRight="marginRight" @mouseenter="onHovered()"
        @mouseleave="onHovered()" :themeMode="_themeMode" :themeColor="_themeColor" :containerType="_containerType" :subContainerType="_subContainerType"
        :overrideThemeMode="overrideThemeMode" :overrideThemeColor="overrideThemeColor" :overrideContainerType="overrideContainerType"
-       :overrideSubContainerType="overrideSubContainerType" @mousedown="onClicked()" @mouseup="onClicked()">
+       :overrideSubContainerType="overrideSubContainerType" @mousedown="onClicked()" @mouseup="onClicked()" :backgroundT="backgroundT">
     <slot></slot>
   </div>
 </template>
@@ -258,7 +272,25 @@ nextTick(() =>{
 <style scoped>
 div.container{
   color: var(--c-text);
-  background-color: var(--c-back-1);
+
+  &[backgroundT="one-color"]{
+    background-color: var(--c-back-1);
+  }
+
+  &[backgroundT="one-mark"]{
+    background: linear-gradient(45deg, var(--c-back-1) 85%, var(--c-mark) 85%);
+  }
+  &[backgroundT="two-mark"]{
+    background: linear-gradient(45deg, var(--c-mark) 15%, var(--c-back-1) 15% 85%, var(--c-mark) 85%);
+  }
+
+  &[backgroundT="linear"]{
+    background: linear-gradient(45deg, var(--c-back-1) 33%, var(--c-back-2) 33% 67%, var(--c-back-3) 67%);
+  }
+
+  &[backgroundT="conic"]{
+    background: conic-gradient(from 210deg at 50% 50%, var(--c-back-1) 0deg 120deg, var(--c-back-2) 120deg 240deg, var(--c-back-3) 240deg 360deg);
+  }
 
   &[padding]{
     padding: var(--padding);

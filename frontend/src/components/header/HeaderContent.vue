@@ -2,7 +2,6 @@
 import Container from "../containers/Container.vue";
 import SimpleButton from "../buttons/SimpleButton.vue";
 import Icon from "../info/Icon.vue";
-import UnSelectable from "../containers/UnSelectable.vue";
 
 </script>
 
@@ -11,12 +10,10 @@ import UnSelectable from "../containers/UnSelectable.vue";
     <h1>RAM</h1>
     <SimpleButton>
       <template #icon>
-        <Icon name="r"/>
+        <Icon name="person"/>
       </template>
       <template #text>
-        <UnSelectable>
-          Registration
-        </UnSelectable>
+        Registration
       </template>
     </SimpleButton>
   </Container>

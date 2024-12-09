@@ -4,7 +4,10 @@
 
 @font-face{
   font-family: "VAG";
-  src: url("/src/assets/fonts/vagroundcyrillic.woff2") format("woff2");
+  src: url("/src/assets/fonts/vagroundcyrillic.woff2") format("woff2"),
+  url("/src/assets/fonts/vagroundcyrillic.eot"),
+  url("/src/assets/fonts/vagroundcyrillic.woff") format("woff"),
+  url("/src/assets/fonts/vagroundcyrillic.ttf") format("truetype");
 }
 
 * {
