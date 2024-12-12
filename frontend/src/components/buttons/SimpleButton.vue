@@ -1,13 +1,6 @@
 <script setup lang="ts">
 import Container from "../containers/Container.vue";
 
-defineProps({
-  marked: {
-    type: Boolean,
-    default: null,
-    required: false
-  }
-});
 defineEmits<{
   click: []
 }>();

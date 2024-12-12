@@ -16,6 +16,14 @@ import Icon from "../info/Icon.vue";
         Registration
       </template>
     </SimpleButton>
+    <SimpleButton>
+      <template #icon>
+        <Icon name="person"/>
+      </template>
+      <template #text>
+        Registration
+      </template>
+    </SimpleButton>
   </Container>
 </template>
 

@@ -154,6 +154,7 @@ const props = defineProps({
     default: false
   },
   /**
+   * Unselected background
    * Maybe:
    * one-color,
    * one-mark,
@@ -164,6 +165,16 @@ const props = defineProps({
    * @default one-color
    */
   backgroundT: {
+    type: String,
+    required: false,
+    default: "one-color"
+  },
+  selected: {
+    type: Boolean,
+    required: false,
+    default: null,
+  },
+  selectedBackgroundT: {
     type: String,
     required: false,
     default: "one-color"
@@ -264,7 +275,8 @@ nextTick(() =>{
        :marginBottom="marginBottom" :marginLeft="marginLeft" :marginTop="marginTop" :marginRight="marginRight" @mouseenter="onHovered()"
        @mouseleave="onHovered()" :themeMode="_themeMode" :themeColor="_themeColor" :containerType="_containerType" :subContainerType="_subContainerType"
        :overrideThemeMode="overrideThemeMode" :overrideThemeColor="overrideThemeColor" :overrideContainerType="overrideContainerType"
-       :overrideSubContainerType="overrideSubContainerType" @mousedown="onClicked()" @mouseup="onClicked()" :backgroundT="backgroundT">
+       :overrideSubContainerType="overrideSubContainerType" @mousedown="onClicked()" @mouseup="onClicked()" :backgroundT="backgroundT"
+       :selected="selected" :selectedBackgroundT="selectedBackgroundT">
     <slot></slot>
   </div>
 </template>
@@ -280,6 +292,7 @@ div.container{
   &[backgroundT="one-mark"]{
     background: linear-gradient(45deg, var(--c-back-1) 85%, var(--c-mark) 85%);
   }
+
   &[backgroundT="two-mark"]{
     background: linear-gradient(45deg, var(--c-mark) 15%, var(--c-back-1) 15% 85%, var(--c-mark) 85%);
   }
@@ -289,6 +302,27 @@ div.container{
   }
 
   &[backgroundT="conic"]{
+    background: conic-gradient(from 210deg at 50% 50%, var(--c-back-1) 0deg 120deg, var(--c-back-2) 120deg 240deg, var(--c-back-3) 240deg 360deg);
+  }
+
+  &[selected=true][selectedBackgroundT="one-color"]{
+    background-color: var(--c-back-1);
+    bor
+  }
+
+  &[selected=true][selectedBackgroundT="one-mark"]{
+    background: linear-gradient(45deg, var(--c-back-1) 85%, var(--c-mark) 85%);
+  }
+
+  &[selected=true][selectedBackgroundT="two-mark"]{
+    background: linear-gradient(45deg, var(--c-mark) 15%, var(--c-back-1) 15% 85%, var(--c-mark) 85%);
+  }
+
+  &[selected=true][selectedBackgroundT="linear"]{
+    background: linear-gradient(45deg, var(--c-back-1) 33%, var(--c-back-2) 33% 67%, var(--c-back-3) 67%);
+  }
+
+  &[selected=true][selectedBackgroundT="conic"]{
     background: conic-gradient(from 210deg at 50% 50%, var(--c-back-1) 0deg 120deg, var(--c-back-2) 120deg 240deg, var(--c-back-3) 240deg 360deg);
   }
 
