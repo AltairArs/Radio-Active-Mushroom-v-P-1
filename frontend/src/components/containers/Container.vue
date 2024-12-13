@@ -307,7 +307,6 @@ div.container{
 
   &[selected=true][selectedBackgroundT="one-color"]{
     background-color: var(--c-back-1);
-    bor
   }
 
   &[selected=true][selectedBackgroundT="one-mark"]{
