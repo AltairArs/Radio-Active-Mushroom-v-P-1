@@ -1,266 +1,39 @@
 <script setup lang="ts">
 import { nextTick, ref } from 'vue'
+import {ContainerSettings} from "../../container-system/container-system.ts";
+
 const props = defineProps({
-  /**
-   * Maybe:
-   * PRIMARY,
-   * SECONDARY,
-   * TERTIARY,
-   * NONE,
-   * NAVBAR,
-   * ERROR,
-   * TOOLTIP,
-   * MENU
-   *
-   * AUTO - type of container is determined on the basis of the parent:
-   *
-   * [PARENT] => [CURRENT]
-   *
-   * PRIMARY => SECONDARY
-   *
-   * SECONDARY => TERTIARY
-   *
-   * TERTIARY => PRIMARY
-   *
-   * ERROR => ERROR
-   *
-   * NONE => PRIMARY
-   *
-   * NAVBAR => PRIMARY
-   *
-   * TOOLTIP => TOOLTIP
-   *
-   * MENU => MENU
-   *
-   * @default null (inherit from parent)
-   */
-  containerType: {
-    type: String,
-    required: false,
-    default: null
-  },
-  /**
-   * Maybe:
-   * LIGHT,
-   * DARK
-   *
-   * @default null (inherit from parent)
-   */
-  themeMode: {
-    type: String,
-    required: false,
-    default: null
-  },
-  /**
-   * Maybe:
-   * RED,
-   * BLUE,
-   * YELLOW,
-   * GREEN,
-   * PURPLE,
-   * OLIVE,
-   * CORAL,
-   * TEAL,
-   * HAKI,
-   * BISQUE
-   *
-   * @default null (inherit from parent)
-   */
-  themeColor: {
-    type: String,
-    required: false,
-    default: null
-  },
-  /**
-   * Maybe:
-   * INPUT,
-   * INFO,
-   * NONE
-   *
-   * @default null (inherit from parent)
-   */
-  subContainerType: {
-    type: String,
-    required: false,
-    default: null
-  },
-  padding: {
-    type: Boolean,
-    required: false,
-    default: null
-  },
-  border: {
-    type: Boolean,
-    required: false,
-    default: null
-  },
-  borderRadius: {
-    type: Boolean,
-    required: false,
-    default: null
-  },
-  horizontal: {
-    type: Boolean,
-    required: false,
-    default: null
-  },
-  /**
-   * Maybe:
-   * top-left,
-   * top,
-   * top-right,
-   * right,
-   * bottom-right,
-   * bottom,
-   * bottom-left,
-   * left,
-   * center
-   *
-   * @default top-left
-   */
-  selfAlign: {
-    type: String,
-    required: false,
-    default: "top-left"
-  },
-  marginBottom: {
-    type: String,
-    required: false,
-    default: null
-  },
-  marginLeft: {
-    type: String,
-    required: false,
-    default: null
-  },
-  marginTop: {
-    type: String,
-    required: false,
-    default: null
-  },
-  marginRight: {
-    type: String,
-    required: false,
-    default: null
-  },
-  changeThemeOnHover: {
-    type: Boolean,
-    required: false,
-    default: false
-  },
-  changeThemeOnClick: {
-    type: Boolean,
-    required: false,
-    default: false
-  },
-  /**
-   * Unselected background
-   * Maybe:
-   * one-color,
-   * one-mark,
-   * two-mark,
-   * linear,
-   * conic
-   *
-   * @default one-color
-   */
-  backgroundT: {
-    type: String,
-    required: false,
-    default: "one-color"
-  },
-  selected: {
-    type: Boolean,
-    required: false,
-    default: null,
-  },
-  selectedBackgroundT: {
-    type: String,
-    required: false,
-    default: "one-color"
+  settings: {
+    type: ContainerSettings,
+    required: true,
+    default: {}
   }
 });
 
-function getContainerTypeFromParent(parentValue: string): string{
-  switch (parentValue){
-    case "PRIMARY":
-      return "SECONDARY";
-    case "SECONDARY":
-      return "TERTIARY";
-    case "TERTIARY":
-      return "PRIMARY";
-    case "NONE":
-      return "PRIMARY";
-    case "NAVBAR":
-      return "PRIMARY";
-    default:
-      return parentValue;
-  }
-}
-
-function getValueOrDefault(value: string | null, _default: string): string{
-  if (value == null){
-    return _default;
-  } else {
-    return value;
-  }
-}
-
 const component = ref<Element | null>(null);
 
-const _themeMode = ref("");
-const _themeColor = ref("");
-const _containerType = ref("");
-const _subContainerType = ref("");
+const _settings = ref(props.settings);
 
-const overrideThemeMode = ref(props.themeMode != null);
-const overrideThemeColor = ref(props.themeColor != null);
-const overrideContainerType = ref(props.containerType != null);
-const overrideSubContainerType = ref(props.subContainerType != null);
+
 
 function setParams(): void{
   if (component.value != null){
     let style = getComputedStyle(component.value);
 
-    let __themeMode = getValueOrDefault(props.themeMode, style.getPropertyValue("--themeMode"));
-    let __themeColor = getValueOrDefault(props.themeColor, style.getPropertyValue("--themeColor"));
-    let __containerType = getValueOrDefault(props.containerType, style.getPropertyValue("--containerType"));
-    let __subContainerType = getValueOrDefault(props.subContainerType, style.getPropertyValue("--subContainerType"));
-    if (__containerType == "AUTO"){
-      __containerType = getContainerTypeFromParent(style.getPropertyValue("--containerType"));
-    }
+    let __themeMode = style.getPropertyValue("--themeMode");
+    let __themeColor = style.getPropertyValue("--themeColor");
+    let __containerType = style.getPropertyValue("--containerType");
+    let __subContainerType = style.getPropertyValue("--subContainerType");
 
-    _themeMode.value = __themeMode;
-    _themeColor.value = __themeColor;
-    _containerType.value = __containerType;
-    _subContainerType.value = __subContainerType;
+    component.value.setAttribute("themeMode", _settings.value.GEN__THEME_MODE(__themeMode));
+    component.value.setAttribute("themeColor", _settings.value.GEN__THEME_COLOR(__themeColor));
+    component.value.setAttribute("containerType", _settings.value.GEN__CONTAINER_TYPE(__containerType));
+    component.value.setAttribute("subContainerType", _settings.value.GEN__SUB_CONTAINER_TYPE(__subContainerType));
 
-    component.value.setAttribute("themeMode", __themeMode);
-    component.value.setAttribute("themeColor", __themeColor);
-    component.value.setAttribute("containerType", __containerType);
-    component.value.setAttribute("subContainerType", __subContainerType);
-  }
-}
-
-function onChange(): void{
-  let attr = _themeMode.value;
-  if (attr == "LIGHT"){
-    attr = "DARK";
-  } else {
-    attr = "LIGHT";
-  }
-  _themeMode.value = attr;
-}
-
-function onHovered(): void{
-  if (props.changeThemeOnHover){
-    onChange();
-  }
-}
-
-function onClicked(): void{
-  if (props.changeThemeOnClick){
-    onChange();
+    component.value.setAttribute("overrideThemeMode", (_settings.value.GEN__OVERRIDE_THEME_MODE()).toString());
+    component.value.setAttribute("overrideThemeColor", (_settings.value.GEN__OVERRIDE_THEME_COLOR()).toString());
+    component.value.setAttribute("overrideContainerType", (_settings.value.GEN__OVERRIDE_CONTAINER_TYPE()).toString());
+    component.value.setAttribute("overrideSubContainerType", (_settings.value.GEN__OVERRIDE_SUB_CONTAINER_TYPE()).toString());
   }
 }
 
@@ -271,126 +44,120 @@ nextTick(() =>{
 </script>
 
 <template>
-  <div ref="component" class="container" :padding="padding" :border="border" :borderRadius="borderRadius" :horizontal="horizontal" :selfAlign="selfAlign"
-       :marginBottom="marginBottom" :marginLeft="marginLeft" :marginTop="marginTop" :marginRight="marginRight" @mouseenter="onHovered()"
-       @mouseleave="onHovered()" :themeMode="_themeMode" :themeColor="_themeColor" :containerType="_containerType" :subContainerType="_subContainerType"
-       :overrideThemeMode="overrideThemeMode" :overrideThemeColor="overrideThemeColor" :overrideContainerType="overrideContainerType"
-       :overrideSubContainerType="overrideSubContainerType" @mousedown="onClicked()" @mouseup="onClicked()" :backgroundT="backgroundT"
-       :selected="selected" :selectedBackgroundT="selectedBackgroundT">
-    <slot></slot>
+  <div ref="component" class="container-main">
+    <div class="container"
+         :horizontal="_settings.HORIZONTAL_CHILD_LOCATION"
+         :backgroundType="_settings.BACKGROUND_TYPE"
+         :selfAlign="_settings.SELF_ALIGNMENT"
+         :unselectableV="_settings.UNSELECTABLE"
+    >
+      <slot></slot>
+    </div>
   </div>
 </template>
 
 <style scoped>
-div.container{
-  color: var(--c-text);
+div.container-main{
 
-  &[backgroundT="one-color"]{
-    background-color: var(--c-back-1);
-  }
+  margin: calc(var(--margin) * v-bind(_settings.MARGIN_TOP))
+      calc(var(--margin) * v-bind(_settings.MARGIN_RIGHT))
+      calc(var(--margin) * v-bind(_settings.MARGIN_BOTTOM))
+      calc(var(--margin) * v-bind(_settings.MARGIN_LEFT));
 
-  &[backgroundT="one-mark"]{
-    background: linear-gradient(45deg, var(--c-back-1) 85%, var(--c-mark) 85%);
-  }
+  & div.container{
+    color: var(--c-text);
 
-  &[backgroundT="two-mark"]{
-    background: linear-gradient(45deg, var(--c-mark) 15%, var(--c-back-1) 15% 85%, var(--c-mark) 85%);
-  }
+    border-radius: calc(var(--border-radius) * v-bind(_settings.BORDER_RADIUS_TOP_LEFT_ANGLE))
+        calc(var(--border-radius) * v-bind(_settings.BORDER_RADIUS_TOP_RIGHT_ANGLE))
+        calc(var(--border-radius) * v-bind(_settings.BORDER_RADIUS_BOTTOM_RIGHT_ANGLE))
+        calc(var(--border-radius) * v-bind(_settings.BORDER_RADIUS_BOTTOM_LEFT_ANGLE));
 
-  &[backgroundT="linear"]{
-    background: linear-gradient(45deg, var(--c-back-1) 33%, var(--c-back-2) 33% 67%, var(--c-back-3) 67%);
-  }
+    border-width: calc(var(--border-width) * v-bind(_settings.BORDER_TOP_WIDTH))
+        calc(var(--border-width) * v-bind(_settings.BORDER_RIGHT_WIDTH))
+        calc(var(--border-width) * v-bind(_settings.BORDER_BOTTOM_WIDTH))
+        calc(var(--border-width) * v-bind(_settings.BORDER_LEFT_WIDTH));
 
-  &[backgroundT="conic"]{
-    background: conic-gradient(from 210deg at 50% 50%, var(--c-back-1) 0deg 120deg, var(--c-back-2) 120deg 240deg, var(--c-back-3) 240deg 360deg);
-  }
+    border-style: v-bind(_settings.BORDER_TOP_STYLE)
+        v-bind(_settings.BORDER_RIGHT_STYLE)
+        v-bind(_settings.BORDER_BOTTOM_STYLE)
+        v-bind(_settings.BORDER_LEFT_STYLE);
 
-  &[selected=true][selectedBackgroundT="one-color"]{
-    background-color: var(--c-back-1);
-  }
+    padding: calc(var(--padding) * v-bind(_settings.PADDING_TOP))
+        calc(var(--padding) * v-bind(_settings.PADDING_RIGHT))
+        calc(var(--padding) * v-bind(_settings.PADDING_BOTTOM))
+        calc(var(--padding) * v-bind(_settings.PADDING_LEFT));
 
-  &[selected=true][selectedBackgroundT="one-mark"]{
-    background: linear-gradient(45deg, var(--c-back-1) 85%, var(--c-mark) 85%);
-  }
+    box-shadow: calc(1px * v-bind(_settings.SHADOW_HORIZONTAL_OFFSET))
+        calc(1px * v-bind(_settings.SHADOW_VERTICAL_OFFSET))
+        calc(1px * v-bind(_settings.SHADOW_BLUR))
+        calc(1px * v-bind(_settings.SHADOW_STRETCH)) var(--c-shadow);
 
-  &[selected=true][selectedBackgroundT="two-mark"]{
-    background: linear-gradient(45deg, var(--c-mark) 15%, var(--c-back-1) 15% 85%, var(--c-mark) 85%);
-  }
+    &[horizontal=true]{
+      display: flex;
+    }
 
-  &[selected=true][selectedBackgroundT="linear"]{
-    background: linear-gradient(45deg, var(--c-back-1) 33%, var(--c-back-2) 33% 67%, var(--c-back-3) 67%);
-  }
+    &[backgroundType="one-color"]{
+      background-color: var(--c-back-1);
+    }
 
-  &[selected=true][selectedBackgroundT="conic"]{
-    background: conic-gradient(from 210deg at 50% 50%, var(--c-back-1) 0deg 120deg, var(--c-back-2) 120deg 240deg, var(--c-back-3) 240deg 360deg);
-  }
+    &[backgroundType="one-mark"]{
+      background: linear-gradient(45deg, var(--c-back-1) 85%, var(--c-mark) 85%);
+    }
 
-  &[padding]{
-    padding: var(--padding);
-  }
+    &[backgroundType="two-mark"]{
+      background: linear-gradient(45deg, var(--c-mark) 15%, var(--c-back-1) 15% 85%, var(--c-mark) 85%);
+    }
 
-  &[border]{
-    border: var(--border-width) solid var(--c-border);
-  }
+    &[backgroundType="linear"]{
+      background: linear-gradient(45deg, var(--c-back-1) 33%, var(--c-back-2) 33% 67%, var(--c-back-3) 67%);
+    }
 
-  &[borderRadius]{
-    border-radius: var(--border-radius);
-  }
+    &[backgroundType="conic"]{
+      background: conic-gradient(from 210deg at 50% 50%, var(--c-back-1) 0deg 120deg, var(--c-back-2) 120deg 240deg, var(--c-back-3) 240deg 360deg);
+    }
 
-  &[horizontal]{
-    display: flex;
-  }
+    &[selfAlign="top-left"]{
+      margin: 0 auto auto 0;
+    }
 
-  &[selfAlign="top-left"]{
-    margin: 0 auto auto 0;
-  }
+    &[selfAlign="top"]{
+      margin: 0 auto auto auto;
+    }
 
-  &[selfAlign="top"]{
-    margin: 0 auto auto auto;
-  }
+    &[selfAlign="top-right"]{
+      margin: 0 0 auto auto;
+    }
 
-  &[selfAlign="top-right"]{
-    margin: 0 0 auto auto;
-  }
+    &[selfAlign="right"]{
+      margin: auto 0 auto auto;
+    }
 
-  &[selfAlign="right"]{
-    margin: auto 0 auto auto;
-  }
+    &[selfAlign="bottom-right"]{
+      margin: auto 0 0 auto;
+    }
 
-  &[selfAlign="bottom-right"]{
-    margin: auto 0 0 auto;
-  }
+    &[selfAlign="bottom"]{
+      margin: auto auto 0 auto;
+    }
 
-  &[selfAlign="bottom"]{
-    margin: auto auto 0 auto;
-  }
+    &[selfAlign="bottom-left"]{
+      margin: auto auto 0 0;
+    }
 
-  &[selfAlign="bottom-left"]{
-    margin: auto auto 0 0;
-  }
+    &[selfAlign="left"]{
+      margin: auto auto auto 0;
+    }
 
-  &[selfAlign="left"]{
-    margin: auto auto auto 0;
-  }
+    &[selfAlign="center"]{
+      margin: auto;
+    }
 
-  &[selfAlign="center"]{
-    margin: auto;
-  }
-
-  &[marginBottom]{
-    margin-bottom: calc(var(--margin) * v-bind(marginBottom));
-  }
-
-  &[marginLeft]{
-    margin-left: calc(var(--margin) * v-bind(marginLeft));
-  }
-
-  &[marginTop]{
-    margin-left: calc(var(--margin) * v-bind(marginTop));
-  }
-
-  &[marginRight]{
-    margin-left: calc(var(--margin) * v-bind(marginRight));
+    &[unselectableV=true]{
+      -webkit-user-select: none; /* Safari */
+      -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* IE10+/Edge */
+      user-select: none; /* Standard */
+    }
   }
 }
 </style>

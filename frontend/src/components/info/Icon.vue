@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import Container from "../containers/Container.vue";
+import {ContainerSettings, IContainerSettingsCreate} from "../../container-system/container-system.ts";
+
 defineProps({
   /**
    * Maybe:
@@ -56,18 +59,23 @@ defineProps({
     default: "lg"
   }
 })
+
+const containerCreate: IContainerSettingsCreate = {
+  create(): ContainerSettings {
+    return new ContainerSettings();
+  }
+}
+
 </script>
 
 <template>
-  <div class="icon">
+  <Container :settings="containerCreate.create()" class="icon">
     <i :class="'fa-' + pack + ' fa-' + style + ' fa-' + name + ' fa-' + size"></i>
-  </div>
+  </Container>
 </template>
 
 <style scoped>
-div.icon i{
+.icon i{
   color: var(--c-icon);
-  display: inline-flex;
-  margin: calc(var(--margin) / 2);
 }
 </style>

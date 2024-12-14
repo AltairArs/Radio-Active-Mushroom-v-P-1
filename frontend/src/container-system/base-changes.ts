@@ -1,13 +1,14 @@
-import {ContainerSettings, IContainerSettings} from "./container-system.ts";
+/*import {ContainerSettings, IContainerSettingsChange} from "./container-system.ts";
 
-const SET_BORDER_RADIUS_1: IContainerSettings = {
-    change: function (settings: ContainerSettings): ContainerSettings{
-        settings.setProperty("BORDER_RADIUS_TOP_LEFT_ANGLE", 1);
-        settings.setProperty("BORDER_RADIUS_TOP_RIGHT_ANGLE", 1);
-        settings.setProperty("BORDER_RADIUS_BOTTOM_LEFT_ANGLE", 1);
-        settings.setProperty("BORDER_RADIUS_BOTTOM_RIGHT_ANGLE", 1);
-        return settings;
+export function CONTAINER_CHANGE_SET_PADDING(value: number): IContainerSettingsChange{
+    return {
+        change(settings: ContainerSettings): ContainerSettings {
+            settings.setProperty("PADDING_TOP", value);
+            settings.setProperty("PADDING_RIGHT", value);
+            settings.setProperty("PADDING_LEFT", value);
+            settings.setProperty("PADDING_BOTTOM", value);
+            return settings;
+        }
     }
-}
+}*/
 
-SET_BORDER_RADIUS_1;

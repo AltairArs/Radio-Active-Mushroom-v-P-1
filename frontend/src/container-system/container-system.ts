@@ -1,119 +1,116 @@
 /**
- * @var {number} BORDER_RADIUS_TOP_LEFT_ANGLE - 0...inf
- * @var {number} BORDER_RADIUS_TOP_RIGHT_ANGLE - 0...inf
- * @var {number} BORDER_RADIUS_BOTTOM_LEFT_ANGLE - 0...inf
- * @var {number} BORDER_RADIUS_BOTTOM_RIGHT_ANGLE - 0...inf
- * @var {number} BORDER_TOP_WIDTH - 0...inf
- * @var {number} BORDER_RIGHT_WIDTH - 0...inf
- * @var {number} BORDER_BOTTOM_WIDTH - 0...inf
- * @var {number} BORDER_LEFT_WIDTH - 0...inf
- * @var {string} BORDER_TOP_STYLE - none, hidden, dotted, dashed, solid, double, groove, ridge, inset, outset
- * @var {string} BORDER_LEFT_STYLE - none, hidden, dotted, dashed, solid, double, groove, ridge, inset, outset
- * @var {string} BORDER_BOTTOM_STYLE - none, hidden, dotted, dashed, solid, double, groove, ridge, inset, outset
- * @var {string} BORDER_RIGHT_STYLE - none, hidden, dotted, dashed, solid, double, groove, ridge, inset, outset
- * @var {number} PADDING_TOP - 0...inf
- * @var {number} PADDING_BOTTOM - 0...inf
- * @var {number} PADDING_LEFT - 0...inf
- * @var {number} PADDING_RIGHT - 0...inf
- * @var {boolean} HORIZONTAL_CHILD_LOCATION - true, false
- * @var {number} MARGIN_TOP - 0...inf
- * @var {number} MARGIN_LEFT - 0...inf
- * @var {number} MARGIN_RIGHT - 0...inf
- * @var {number} MARGIN_BOTTOM - 0...inf
- * @var {string} BACKGROUND_TYPE - one-color, ...
- * @var {number} SHADOW_VERTICAL_OFFSET - 0...inf
- * @var {number} SHADOW_HORIZONTAL_OFFSET - 0...inf
- * @var {number} SHADOW_BLUR - 0...inf
- * @var {number} SHADOW_STRETCH - 0...inf
- * @var {string} SELF_ALIGNMENT - top-left, top, top-right, right, bottom-right, bottom, bottom-left, left, center
- * @var {boolean} UNSELECTABLE - true, false
+ * GEN__[VARIABLE_NAME] - variable is generated
  *
- * @var {string} THEME_COLOR - PARENT, ...
- * @var {string} THEME_MODE - DARK, LIGHT, PARENT
- * @var {string} CONTAINER_TYPE - PRIMARY, SECONDARY, TERTIARY, ERROR, NONE, NAVBAR, TOOLTIP, MENU, PARENT, AUTO
- * @var {string} SUB_CONTAINER_TYPE - INPUT, NONE, INFO, PARENT
+ * @var {number} BORDER_RADIUS_TOP_LEFT_ANGLE - 0...inf | DEFAULT | 1
+ * @var {number} BORDER_RADIUS_TOP_RIGHT_ANGLE - 0...inf | DEFAULT | 1
+ * @var {number} BORDER_RADIUS_BOTTOM_LEFT_ANGLE - 0...inf | DEFAULT | 1
+ * @var {number} BORDER_RADIUS_BOTTOM_RIGHT_ANGLE - 0...inf | DEFAULT | 1
+ * @var {number} BORDER_TOP_WIDTH - 0...inf | DEFAULT | 1
+ * @var {number} BORDER_RIGHT_WIDTH - 0...inf | DEFAULT | 1
+ * @var {number} BORDER_BOTTOM_WIDTH - 0...inf | DEFAULT | 1
+ * @var {number} BORDER_LEFT_WIDTH - 0...inf | DEFAULT | 1
+ * @var {string} BORDER_TOP_STYLE - none, hidden, dotted, dashed, solid, double, groove, ridge, inset, outset | DEFAULT | none
+ * @var {string} BORDER_LEFT_STYLE - none, hidden, dotted, dashed, solid, double, groove, ridge, inset, outset | DEFAULT | none
+ * @var {string} BORDER_BOTTOM_STYLE - none, hidden, dotted, dashed, solid, double, groove, ridge, inset, outset | DEFAULT | none
+ * @var {string} BORDER_RIGHT_STYLE - none, hidden, dotted, dashed, solid, double, groove, ridge, inset, outset | DEFAULT | none
+ * @var {number} PADDING_TOP - 0...inf | DEFAULT | 1
+ * @var {number} PADDING_BOTTOM - 0...inf | DEFAULT | 1
+ * @var {number} PADDING_LEFT - 0...inf | DEFAULT | 1
+ * @var {number} PADDING_RIGHT - 0...inf | DEFAULT | 1
+ * @var {boolean} HORIZONTAL_CHILD_LOCATION - true, false | DEFAULT | false
+ * @var {number} MARGIN_TOP - 0...inf | DEFAULT | 0
+ * @var {number} MARGIN_LEFT - 0...inf | DEFAULT | 0
+ * @var {number} MARGIN_RIGHT - 0...inf | DEFAULT | 0
+ * @var {number} MARGIN_BOTTOM - 0...inf | DEFAULT | 0
+ * @var {string} BACKGROUND_TYPE - one-color, ... | DEFAULT | one-color
+ * @var {number} SHADOW_VERTICAL_OFFSET - 0...inf | DEFAULT | 0
+ * @var {number} SHADOW_HORIZONTAL_OFFSET - 0...inf | DEFAULT | 0
+ * @var {number} SHADOW_BLUR - 0...inf | DEFAULT | 0
+ * @var {number} SHADOW_STRETCH - 0...inf | DEFAULT | 0
+ * @var {string} SELF_ALIGNMENT - none, top-left, top, top-right, right, bottom-right, bottom, bottom-left, left, center | DEFAULT | none
+ * @var {boolean} UNSELECTABLE - true, false | DEFAULT | true
+ *
+ * @var {string} THEME_COLOR - PARENT, ... | DEFAULT | PARENT
+ * @var {string} THEME_MODE - DARK, LIGHT, PARENT | DEFAULT | PARENT
+ * @var {string} CONTAINER_TYPE - PRIMARY, SECONDARY, TERTIARY, ERROR, NONE, NAVBAR, TOOLTIP, MENU, PARENT, AUTO | DEFAULT | PARENT
+ *
+ * AUTO - type of container is determined on the basis of the parent:
+ *
+ * [PARENT] => [CURRENT]
+ *
+ * PRIMARY => SECONDARY
+ *
+ * SECONDARY => TERTIARY
+ *
+ * TERTIARY => PRIMARY
+ *
+ * ERROR => ERROR
+ *
+ * NONE => PRIMARY
+ *
+ * NAVBAR => PRIMARY
+ *
+ * TOOLTIP => TOOLTIP
+ *
+ * MENU => MENU
+ * @var {string} SUB_CONTAINER_TYPE - INPUT, NONE, INFO, PARENT | DEFAULT | PARENT
  */
 class ContainerSettingsBase{
-    public setProperty(name: string, value: any): void{
-        const properties = Object.keys(this);
-        if (properties.includes(name)){
-            this[name as keyof ContainerSettingsBase] = value;
-        } else {
-            throw new RangeError("Name of property is not valid");
-        }
-    }
-    private getProperty(name: string): any{
-        const properties = Object.keys(this);
-        if (properties.includes(name)){
-            return this[name as keyof ContainerSettingsBase];
-        } else {
-            throw new RangeError("Name of property is not valid");
-        }
-    }
-    public getPropertyAsNumber(name: string, _parentValue?: number): number{
-        return this.getProperty(name) as number;
-    }
-    public getPropertyAsString(name: string, _parentValue?: string): string{
-        return this.getProperty(name) as string;
-    }
-    public getPropertyAsBoolean(name: string, _parentValue?: boolean): boolean{
-        return this.getProperty(name) as boolean;
-    }
+
 }
 
 class BorderRadiusSettings extends ContainerSettingsBase{
-    protected BORDER_RADIUS_TOP_LEFT_ANGLE: number = 0
-    protected BORDER_RADIUS_TOP_RIGHT_ANGLE: number = 0
-    protected BORDER_RADIUS_BOTTOM_LEFT_ANGLE: number = 0
-    protected BORDER_RADIUS_BOTTOM_RIGHT_ANGLE: number = 0
+    public BORDER_RADIUS_TOP_LEFT_ANGLE: number = 1
+    public BORDER_RADIUS_TOP_RIGHT_ANGLE: number = 1
+    public BORDER_RADIUS_BOTTOM_LEFT_ANGLE: number = 1
+    public BORDER_RADIUS_BOTTOM_RIGHT_ANGLE: number = 1
 }
 
 class BorderWidthSettings extends BorderRadiusSettings{
-    protected BORDER_TOP_WIDTH: number = 1
-    protected BORDER_RIGHT_WIDTH: number = 1
-    protected BORDER_BOTTOM_WIDTH: number = 1
-    protected BORDER_LEFT_WIDTH: number = 1
+    public BORDER_TOP_WIDTH: number = 1
+    public BORDER_RIGHT_WIDTH: number = 1
+    public BORDER_BOTTOM_WIDTH: number = 1
+    public BORDER_LEFT_WIDTH: number = 1
 }
 
 class BorderStyleSettings extends BorderWidthSettings{
-    protected BORDER_TOP_STYLE: string = "none"
-    protected BORDER_LEFT_STYLE: string = "none"
-    protected BORDER_BOTTOM_STYLE: string = "none"
-    protected BORDER_RIGHT_STYLE: string = "none"
+    public BORDER_TOP_STYLE: string = "none"
+    public BORDER_LEFT_STYLE: string = "none"
+    public BORDER_BOTTOM_STYLE: string = "none"
+    public BORDER_RIGHT_STYLE: string = "none"
 }
 
 class PaddingSettings extends BorderStyleSettings{
-    protected PADDING_TOP: number = 0
-    protected PADDING_BOTTOM: number = 0
-    protected PADDING_LEFT: number = 0
-    protected PADDING_RIGHT: number = 0
+    public PADDING_TOP: number = 1
+    public PADDING_BOTTOM: number = 1
+    public PADDING_LEFT: number = 1
+    public PADDING_RIGHT: number = 1
 }
 
 class ChildItemsSettings extends PaddingSettings{
-    protected HORIZONTAL_CHILD_LOCATION: boolean = false
+    public HORIZONTAL_CHILD_LOCATION: boolean = false
 }
 
 class MarginSettings extends ChildItemsSettings{
-    protected MARGIN_TOP: number = 0
-    protected MARGIN_LEFT: number = 0
-    protected MARGIN_RIGHT: number = 0
-    protected MARGIN_BOTTOM: number = 0
+    public MARGIN_TOP: number = 0
+    public MARGIN_LEFT: number = 0
+    public MARGIN_RIGHT: number = 0
+    public MARGIN_BOTTOM: number = 0
 }
 
 class SelfAlignSettings extends MarginSettings{
-    protected SELF_ALIGNMENT: string = "top-left"
+    public SELF_ALIGNMENT: string = "none"
 }
 
 class BackgroundSettings extends SelfAlignSettings{
-
-    protected BACKGROUND_TYPE: string = "one-color"
+    public BACKGROUND_TYPE: string = "one-color"
 }
 
 class ColorSetSettings extends BackgroundSettings{
-    protected THEME_COLOR: string = "PARENT"
-    protected THEME_MODE: string = "PARENT"
-    protected CONTAINER_TYPE: string = "PARENT"
-    protected SUB_CONTAINER_TYPE: string = "PARENT"
+    public THEME_COLOR: string = "PARENT"
+    public THEME_MODE: string = "PARENT"
+    public CONTAINER_TYPE: string = "PARENT"
+    public SUB_CONTAINER_TYPE: string = "PARENT"
 
     private CONTAINER_TYPE_FROM_PARENT(parentValue: string): string{
         switch (parentValue){
@@ -131,59 +128,77 @@ class ColorSetSettings extends BackgroundSettings{
                 return parentValue;
         }
     }
-    public getPropertyAsString(name: string, _parentValue?: string): string {
-        let parentValue: string = "";
-        if (_parentValue != null)
-            parentValue = _parentValue;
-        switch (name){
-            case "THEME_COLOR":
-                if (this.THEME_COLOR == "PARENT"){
-                    return parentValue;
-                } else {
-                    return this.THEME_COLOR;
-                }
-            case "THEME_MODE":
-                if (this.THEME_MODE == "PARENT"){
-                    return parentValue;
-                } else {
-                    return this.THEME_MODE;
-                }
-            case "SUB_CONTAINER_TYPE":
-                if (this.SUB_CONTAINER_TYPE == "PARENT"){
-                    return parentValue;
-                } else {
-                    return this.SUB_CONTAINER_TYPE;
-                }
-            case "CONTAINER_TYPE":
-                if (this.CONTAINER_TYPE == "PARENT"){
-                    return parentValue;
-                } else if (this.CONTAINER_TYPE == "AUTO"){
-                    return this.CONTAINER_TYPE_FROM_PARENT(parentValue);
-                } else {
-                    return this.CONTAINER_TYPE;
-                }
-            default:
-                return super.getPropertyAsString(name, _parentValue);
+
+    public GEN__OVERRIDE_THEME_COLOR(): boolean{
+        return this.THEME_COLOR != "PARENT";
+    }
+
+    public GEN__OVERRIDE_THEME_MODE(): boolean{
+        return this.THEME_MODE != "PARENT";
+    }
+
+    public GEN__OVERRIDE_CONTAINER_TYPE(): boolean{
+        return this.CONTAINER_TYPE != "PARENT";
+    }
+
+    public GEN__OVERRIDE_SUB_CONTAINER_TYPE(): boolean{
+        return this.SUB_CONTAINER_TYPE != "PARENT";
+    }
+
+    public GEN__THEME_COLOR(parentValue: string): string{
+        if (this.THEME_COLOR == "PARENT"){
+            return parentValue;
+        } else {
+            return this.THEME_COLOR;
+        }
+    }
+
+    public GEN__THEME_MODE(parentValue: string): string{
+        if (this.THEME_MODE == "PARENT"){
+            return parentValue;
+        } else {
+            return this.THEME_MODE;
+        }
+    }
+
+    public GEN__SUB_CONTAINER_TYPE(parentValue: string): string{
+        if (this.SUB_CONTAINER_TYPE == "PARENT"){
+            return parentValue;
+        } else {
+            return this.SUB_CONTAINER_TYPE;
+        }
+    }
+
+    public GEN__CONTAINER_TYPE(parentValue: string): string{
+        if (this.CONTAINER_TYPE == "PARENT"){
+            return parentValue;
+        } else if (this.CONTAINER_TYPE == "AUTO"){
+            return this.CONTAINER_TYPE_FROM_PARENT(parentValue);
+        } else {
+            return this.CONTAINER_TYPE;
         }
     }
 }
 
 class ShadowSettings extends ColorSetSettings{
-    protected SHADOW_VERTICAL_OFFSET: number = 0
-    protected SHADOW_HORIZONTAL_OFFSET: number = 0
-    protected SHADOW_BLUR: number = 0
-    protected SHADOW_STRETCH: number = 0
+    public SHADOW_VERTICAL_OFFSET: number = 0
+    public SHADOW_HORIZONTAL_OFFSET: number = 0
+    public SHADOW_BLUR: number = 0
+    public SHADOW_STRETCH: number = 0
 }
 
 class UnselectableSettings extends ShadowSettings{
-    protected UNSELECTABLE: boolean = true
+    public UNSELECTABLE: boolean = true
 }
 
 export class ContainerSettings extends UnselectableSettings{
 
 }
 
-export interface IContainerSettings{
-    change?(settings: ContainerSettings): ContainerSettings;
-    create?(): ContainerSettings;
+export interface IContainerSettingsChange{
+    change(settings: ContainerSettings): ContainerSettings;
+}
+
+export interface IContainerSettingsCreate{
+    create(): ContainerSettings;
 }
