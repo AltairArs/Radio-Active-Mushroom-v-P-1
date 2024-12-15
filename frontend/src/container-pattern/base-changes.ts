@@ -57,3 +57,23 @@ export function CHANGE_CONTAINER_SET_BORDER_WIDTH(value: number): IContainerSett
         }
     }
 }
+
+export function CHANGE_CONTAINER_SET_BORDER_RADIUS_TOP(value: number): IContainerSettingsChange{
+    return {
+        change(settings: ContainerSettings): ContainerSettings {
+            settings.BORDER_RADIUS_TOP_LEFT_ANGLE = value;
+            settings.BORDER_RADIUS_TOP_RIGHT_ANGLE = value;
+            return settings;
+        }
+    }
+}
+
+export function CHANGE_CONTAINER_SET_BORDER_RADIUS_BOTTOM(value: number): IContainerSettingsChange{
+    return {
+        change(settings: ContainerSettings): ContainerSettings {
+            settings.BORDER_RADIUS_BOTTOM_RIGHT_ANGLE = value;
+            settings.BORDER_RADIUS_BOTTOM_LEFT_ANGLE = value;
+            return settings;
+        }
+    }
+}
