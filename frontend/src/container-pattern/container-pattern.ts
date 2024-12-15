@@ -1,22 +1,22 @@
 /**
- * GEN__[VARIABLE_NAME] - variable is generated
+ * GEN__[VARIABLE_NAME] - variable is generated, can't be set
  *
- * @var {number} BORDER_RADIUS_TOP_LEFT_ANGLE - 0...inf | DEFAULT | 1
- * @var {number} BORDER_RADIUS_TOP_RIGHT_ANGLE - 0...inf | DEFAULT | 1
- * @var {number} BORDER_RADIUS_BOTTOM_LEFT_ANGLE - 0...inf | DEFAULT | 1
- * @var {number} BORDER_RADIUS_BOTTOM_RIGHT_ANGLE - 0...inf | DEFAULT | 1
- * @var {number} BORDER_TOP_WIDTH - 0...inf | DEFAULT | 1
- * @var {number} BORDER_RIGHT_WIDTH - 0...inf | DEFAULT | 1
- * @var {number} BORDER_BOTTOM_WIDTH - 0...inf | DEFAULT | 1
- * @var {number} BORDER_LEFT_WIDTH - 0...inf | DEFAULT | 1
+ * @var {number} BORDER_RADIUS_TOP_LEFT_ANGLE - 0...inf | DEFAULT | 0
+ * @var {number} BORDER_RADIUS_TOP_RIGHT_ANGLE - 0...inf | DEFAULT | 0
+ * @var {number} BORDER_RADIUS_BOTTOM_LEFT_ANGLE - 0...inf | DEFAULT | 0
+ * @var {number} BORDER_RADIUS_BOTTOM_RIGHT_ANGLE - 0...inf | DEFAULT | 0
+ * @var {number} BORDER_TOP_WIDTH - 0...inf | DEFAULT | 0
+ * @var {number} BORDER_RIGHT_WIDTH - 0...inf | DEFAULT | 0
+ * @var {number} BORDER_BOTTOM_WIDTH - 0...inf | DEFAULT | 0
+ * @var {number} BORDER_LEFT_WIDTH - 0...inf | DEFAULT | 0
  * @var {string} BORDER_TOP_STYLE - none, hidden, dotted, dashed, solid, double, groove, ridge, inset, outset | DEFAULT | none
  * @var {string} BORDER_LEFT_STYLE - none, hidden, dotted, dashed, solid, double, groove, ridge, inset, outset | DEFAULT | none
  * @var {string} BORDER_BOTTOM_STYLE - none, hidden, dotted, dashed, solid, double, groove, ridge, inset, outset | DEFAULT | none
  * @var {string} BORDER_RIGHT_STYLE - none, hidden, dotted, dashed, solid, double, groove, ridge, inset, outset | DEFAULT | none
- * @var {number} PADDING_TOP - 0...inf | DEFAULT | 1
- * @var {number} PADDING_BOTTOM - 0...inf | DEFAULT | 1
- * @var {number} PADDING_LEFT - 0...inf | DEFAULT | 1
- * @var {number} PADDING_RIGHT - 0...inf | DEFAULT | 1
+ * @var {number} PADDING_TOP - 0...inf | DEFAULT | 0
+ * @var {number} PADDING_BOTTOM - 0...inf | DEFAULT | 0
+ * @var {number} PADDING_LEFT - 0...inf | DEFAULT | 0
+ * @var {number} PADDING_RIGHT - 0...inf | DEFAULT | 0
  * @var {boolean} HORIZONTAL_CHILD_LOCATION - true, false | DEFAULT | false
  * @var {number} MARGIN_TOP - 0...inf | DEFAULT | 0
  * @var {number} MARGIN_LEFT - 0...inf | DEFAULT | 0
@@ -60,17 +60,17 @@ class ContainerSettingsBase{
 }
 
 class BorderRadiusSettings extends ContainerSettingsBase{
-    public BORDER_RADIUS_TOP_LEFT_ANGLE: number = 1
-    public BORDER_RADIUS_TOP_RIGHT_ANGLE: number = 1
-    public BORDER_RADIUS_BOTTOM_LEFT_ANGLE: number = 1
-    public BORDER_RADIUS_BOTTOM_RIGHT_ANGLE: number = 1
+    public BORDER_RADIUS_TOP_LEFT_ANGLE: number = 0
+    public BORDER_RADIUS_TOP_RIGHT_ANGLE: number = 0
+    public BORDER_RADIUS_BOTTOM_LEFT_ANGLE: number = 0
+    public BORDER_RADIUS_BOTTOM_RIGHT_ANGLE: number = 0
 }
 
 class BorderWidthSettings extends BorderRadiusSettings{
-    public BORDER_TOP_WIDTH: number = 1
-    public BORDER_RIGHT_WIDTH: number = 1
-    public BORDER_BOTTOM_WIDTH: number = 1
-    public BORDER_LEFT_WIDTH: number = 1
+    public BORDER_TOP_WIDTH: number = 0
+    public BORDER_RIGHT_WIDTH: number = 0
+    public BORDER_BOTTOM_WIDTH: number = 0
+    public BORDER_LEFT_WIDTH: number = 0
 }
 
 class BorderStyleSettings extends BorderWidthSettings{
@@ -81,10 +81,10 @@ class BorderStyleSettings extends BorderWidthSettings{
 }
 
 class PaddingSettings extends BorderStyleSettings{
-    public PADDING_TOP: number = 1
-    public PADDING_BOTTOM: number = 1
-    public PADDING_LEFT: number = 1
-    public PADDING_RIGHT: number = 1
+    public PADDING_TOP: number = 0
+    public PADDING_BOTTOM: number = 0
+    public PADDING_LEFT: number = 0
+    public PADDING_RIGHT: number = 0
 }
 
 class ChildItemsSettings extends PaddingSettings{

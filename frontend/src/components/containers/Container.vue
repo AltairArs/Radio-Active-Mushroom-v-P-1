@@ -44,11 +44,10 @@ nextTick(() =>{
 </script>
 
 <template>
-  <div ref="component" class="container-main">
+  <div ref="component" class="container-main" :selfAlign="_settings.SELF_ALIGNMENT">
     <div class="container"
          :horizontal="_settings.HORIZONTAL_CHILD_LOCATION"
          :backgroundType="_settings.BACKGROUND_TYPE"
-         :selfAlign="_settings.SELF_ALIGNMENT"
          :unselectableV="_settings.UNSELECTABLE"
     >
       <slot></slot>
@@ -58,11 +57,48 @@ nextTick(() =>{
 
 <style scoped>
 div.container-main{
+  display: block;
 
   margin: calc(var(--margin) * v-bind(_settings.MARGIN_TOP))
       calc(var(--margin) * v-bind(_settings.MARGIN_RIGHT))
       calc(var(--margin) * v-bind(_settings.MARGIN_BOTTOM))
       calc(var(--margin) * v-bind(_settings.MARGIN_LEFT));
+
+  &[selfAlign="top-left"]{
+    margin: 0 auto auto 0;
+  }
+
+  &[selfAlign="top"]{
+    margin: 0 auto auto auto;
+  }
+
+  &[selfAlign="top-right"]{
+    margin: 0 0 auto auto;
+  }
+
+  &[selfAlign="right"]{
+    margin: auto 0 auto auto;
+  }
+
+  &[selfAlign="bottom-right"]{
+    margin: auto 0 0 auto;
+  }
+
+  &[selfAlign="bottom"]{
+    margin: auto auto 0 auto;
+  }
+
+  &[selfAlign="bottom-left"]{
+    margin: auto auto 0 0;
+  }
+
+  &[selfAlign="left"]{
+    margin: auto auto auto 0;
+  }
+
+  &[selfAlign="center"]{
+    margin: auto;
+  }
 
   & div.container{
     color: var(--c-text);
@@ -114,42 +150,6 @@ div.container-main{
 
     &[backgroundType="conic"]{
       background: conic-gradient(from 210deg at 50% 50%, var(--c-back-1) 0deg 120deg, var(--c-back-2) 120deg 240deg, var(--c-back-3) 240deg 360deg);
-    }
-
-    &[selfAlign="top-left"]{
-      margin: 0 auto auto 0;
-    }
-
-    &[selfAlign="top"]{
-      margin: 0 auto auto auto;
-    }
-
-    &[selfAlign="top-right"]{
-      margin: 0 0 auto auto;
-    }
-
-    &[selfAlign="right"]{
-      margin: auto 0 auto auto;
-    }
-
-    &[selfAlign="bottom-right"]{
-      margin: auto 0 0 auto;
-    }
-
-    &[selfAlign="bottom"]{
-      margin: auto auto 0 auto;
-    }
-
-    &[selfAlign="bottom-left"]{
-      margin: auto auto 0 0;
-    }
-
-    &[selfAlign="left"]{
-      margin: auto auto auto 0;
-    }
-
-    &[selfAlign="center"]{
-      margin: auto;
     }
 
     &[unselectableV=true]{

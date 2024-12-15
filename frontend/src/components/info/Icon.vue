@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Container from "../containers/Container.vue";
 import {ContainerSettings, IContainerSettingsCreate} from "../../container-pattern/container-pattern.ts";
+import {CHANGE_CONTAINER_SET_PADDING} from "../../container-pattern/base-changes.ts";
 
 defineProps({
   /**
@@ -60,16 +61,18 @@ defineProps({
   }
 })
 
-const containerCreate: IContainerSettingsCreate = {
+const cCreate: IContainerSettingsCreate = {
   create(): ContainerSettings {
-    return new ContainerSettings();
+    let c = new ContainerSettings();
+    c = CHANGE_CONTAINER_SET_PADDING(1).change(c);
+    return c;
   }
 }
 
 </script>
 
 <template>
-  <Container :settings="containerCreate.create()" class="icon">
+  <Container :settings="cCreate.create()" class="icon">
     <i :class="'fa-' + pack + ' fa-' + style + ' fa-' + name + ' fa-' + size"></i>
   </Container>
 </template>
