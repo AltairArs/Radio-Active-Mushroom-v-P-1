@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Container from "../containers/Container.vue";
-import {ContainerSettings, IContainerSettingsCreate} from "../../container-system/container-system.ts";
+import {ContainerSettings, IContainerSettingsCreate} from "../../container-pattern/container-pattern.ts";
 
 defineProps({
   /**

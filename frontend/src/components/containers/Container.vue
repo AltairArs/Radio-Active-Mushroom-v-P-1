@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { nextTick, ref } from 'vue'
-import {ContainerSettings} from "../../container-system/container-system.ts";
+import {ContainerSettings} from "../../container-pattern/container-pattern.ts";
 
 const props = defineProps({
   settings: {
