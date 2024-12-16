@@ -1,6 +1,20 @@
 /**
- * GEN__[VARIABLE_NAME] - variable is generated, can't be set
- *
+ * ***********************************
+ * Container Pattern
+ * ===================================
+ * ***********************************
+ * @1 component has an object with settings
+ * @2 all settings related to the appearance of the component are stored in one object
+ * @3 there are object-functions for creating a settings object
+ * @4 function objects exist to merge multiple changes to a settings object
+ * @5 settings are referred to by capital letters and the separator _
+ * @6 GEN__[VARIABLE_NAME] - variable is generated, can't be set
+ * @7 component is responsible for processing settings
+ * @8 the component is also responsible for processing changes sent from the outside
+ * @9 you can only inherit from a component once
+ * @10 CREATE_CONTAINER_[CONTAINER_DESCRIPTION] - creation object's name
+ * @11 CHANGE_CONTAINER_[CHANGE_DESCRIPTION] - modification object's name
+ * ********************************
  * @var {number} BORDER_RADIUS_TOP_LEFT_ANGLE - 0...inf | DEFAULT | 0
  * @var {number} BORDER_RADIUS_TOP_RIGHT_ANGLE - 0...inf | DEFAULT | 0
  * @var {number} BORDER_RADIUS_BOTTOM_LEFT_ANGLE - 0...inf | DEFAULT | 0
@@ -22,7 +36,7 @@
  * @var {number} MARGIN_LEFT - 0...inf | DEFAULT | 0
  * @var {number} MARGIN_RIGHT - 0...inf | DEFAULT | 0
  * @var {number} MARGIN_BOTTOM - 0...inf | DEFAULT | 0
- * @var {string} BACKGROUND_TYPE - one-color, ... | DEFAULT | one-color
+ * @var {string} BACKGROUND_TYPE - none, one-color, ... | DEFAULT | one-color
  * @var {number} SHADOW_VERTICAL_OFFSET - 0...inf | DEFAULT | 0
  * @var {number} SHADOW_HORIZONTAL_OFFSET - 0...inf | DEFAULT | 0
  * @var {number} SHADOW_BLUR - 0...inf | DEFAULT | 0
@@ -33,7 +47,7 @@
  * @var {string} THEME_COLOR - PARENT, ... | DEFAULT | PARENT
  * @var {string} THEME_MODE - DARK, LIGHT, PARENT | DEFAULT | PARENT
  * @var {string} CONTAINER_TYPE - PRIMARY, SECONDARY, TERTIARY, ERROR, NONE, NAVBAR, TOOLTIP, MENU, PARENT, AUTO | DEFAULT | PARENT
- *
+ * *************************
  * AUTO - type of container is determined on the basis of the parent:
  *
  * [PARENT] => [CURRENT]
@@ -53,6 +67,7 @@
  * TOOLTIP => TOOLTIP
  *
  * MENU => MENU
+ * *******************************
  * @var {string} SUB_CONTAINER_TYPE - INPUT, NONE, INFO, PARENT | DEFAULT | PARENT
  */
 class ContainerSettingsBase{

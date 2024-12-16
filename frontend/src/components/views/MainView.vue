@@ -8,7 +8,7 @@ import {
   CHANGE_CONTAINER_SET_PADDING
 } from "../../container-pattern/base-changes.ts";
 
-const c1Create: IContainerSettingsCreate = {
+const CREATE_CONTAINER_1: IContainerSettingsCreate = {
   create(): ContainerSettings {
     let c = new ContainerSettings();
     c.CONTAINER_TYPE = "AUTO";
@@ -19,7 +19,7 @@ const c1Create: IContainerSettingsCreate = {
     return c;
   }
 }
-const c2Create: IContainerSettingsCreate = {
+const CREATE_CONTAINER_2: IContainerSettingsCreate = {
   create(): ContainerSettings {
     let c = new ContainerSettings();
     c.CONTAINER_TYPE = "AUTO";
@@ -31,14 +31,14 @@ const c2Create: IContainerSettingsCreate = {
     return c;
   }
 }
-const chCreate: IContainerSettingsCreate = {
+const CREATE_CONTAINER_HORIZONTAL_1: IContainerSettingsCreate = {
   create(): ContainerSettings {
     let c = new ContainerSettings();
     c.HORIZONTAL_CHILD_LOCATION = true;
     return c;
   }
 }
-const ch2Create: IContainerSettingsCreate = {
+const CREATE_CONTAINER_HORIZONTAL_2: IContainerSettingsCreate = {
   create(): ContainerSettings {
     let c = new ContainerSettings();
     c.HORIZONTAL_CHILD_LOCATION = true;
@@ -49,39 +49,39 @@ const ch2Create: IContainerSettingsCreate = {
 </script>
 
 <template>
-  <Container :settings="c1Create.create()">
-    <Container :settings="c2Create.create()">
+  <Container :settings="CREATE_CONTAINER_1.create()">
+    <Container :settings="CREATE_CONTAINER_2.create()">
       <h1>RadioActive Mushroom</h1>
       <Divider/>
       <h2>We offer a simple and easy-to-use solution for database development!</h2>
     </Container>
   </Container>
 
-  <Container :settings="c1Create.create()">
-    <Container :settings="c2Create.create()">
-      <Container :settings="chCreate.create()">
+  <Container :settings="CREATE_CONTAINER_1.create()">
+    <Container :settings="CREATE_CONTAINER_2.create()">
+      <Container :settings="CREATE_CONTAINER_HORIZONTAL_1.create()">
         <Icon name="bolt"/>
         <h2>Easy generation code</h2>
       </Container>
       <Divider/>
-      <Container :settings="ch2Create.create()">
+      <Container :settings="CREATE_CONTAINER_HORIZONTAL_2.create()">
         <Icon name="book"/>
         <h3>for libraries</h3>
       </Container>
-      <Container :settings="ch2Create.create()">
+      <Container :settings="CREATE_CONTAINER_HORIZONTAL_2.create()">
         <Icon name="database"/>
         <h3>for databases</h3>
       </Container>
     </Container>
-    <Container :settings="c2Create.create()">
-      <Container :settings="chCreate.create()">
+    <Container :settings="CREATE_CONTAINER_2.create()">
+      <Container :settings="CREATE_CONTAINER_HORIZONTAL_1.create()">
         <Icon name="pen"/>
         <h2>Easy editing in 2 clicks</h2>
       </Container>
       <Divider/>
     </Container>
-    <Container :settings="c2Create.create()">
-      <Container :settings="chCreate.create()">
+    <Container :settings="CREATE_CONTAINER_2.create()">
+      <Container :settings="CREATE_CONTAINER_HORIZONTAL_1.create()">
         <Icon name="droplet"/>
         <h2>Variety of themes</h2>
       </Container>

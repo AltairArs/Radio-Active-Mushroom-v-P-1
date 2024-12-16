@@ -61,7 +61,7 @@ defineProps({
   }
 })
 
-const cCreate: IContainerSettingsCreate = {
+const CREATE_CONTAINER: IContainerSettingsCreate = {
   create(): ContainerSettings {
     let c = new ContainerSettings();
     c = CHANGE_CONTAINER_SET_PADDING(1).change(c);
@@ -72,7 +72,7 @@ const cCreate: IContainerSettingsCreate = {
 </script>
 
 <template>
-  <Container :settings="cCreate.create()" class="icon">
+  <Container :settings="CREATE_CONTAINER.create()" class="icon">
     <i :class="'fa-' + pack + ' fa-' + style + ' fa-' + name + ' fa-' + size"></i>
   </Container>
 </template>
