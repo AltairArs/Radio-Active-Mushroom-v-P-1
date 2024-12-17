@@ -3,11 +3,19 @@ import MainView from "./components/views/MainView.vue";
 
 const routes = [
     {
-        path: "/",
+        path: "",
         name: "main",
         component: MainView,
         meta: {
-            title: "Main"
+            title: "Главная"
+        }
+    },
+    {
+        path: "/accounts/register",
+        name: "register",
+        component: MainView,
+        meta: {
+            title: "Регистрация"
         }
     }
    /* {

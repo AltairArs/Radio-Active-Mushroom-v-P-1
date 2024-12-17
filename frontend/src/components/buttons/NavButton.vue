@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Container from "../containers/Container.vue";
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import {RouterLink, useRouter} from "vue-router";
 import {
   IContainerSettingsCreate,
@@ -12,7 +12,7 @@ import {
   CHANGE_CONTAINER_SET_PADDING
 } from "../../container-pattern/base-changes.ts";
 
-defineProps({
+const props = defineProps({
   name: {
     type: String,
     required: true,
@@ -33,6 +33,7 @@ const CREATE_CONTAINER: IContainerSettingsCreate = {
     c = CHANGE_CONTAINER_SET_PADDING(1).change(c);
     c = CHANGE_CONTAINER_SET_BORDER_RADIUS(1).change(c);
     c = CHANGE_CONTAINER_SET_BORDER_WIDTH(1).change(c);
+    c.MARGIN_LEFT = 1;
     return c;
   }
 }
@@ -49,22 +50,44 @@ const CHANGE_CONTAINER_UNSELECTED: IContainerSettingsChange = {
   change(settings: ContainerSettings): ContainerSettings {
     settings = CHANGE_CONTAINER_SET_BORDER_STYLE("solid").change(settings);
     settings.BACKGROUND_TYPE = "two-mark";
-    settings.MARGIN_LEFT = 1;
+    return settings;
+  }
+}
+
+const CHANGE_CONTAINER_MOUSE_ENTER: IContainerSettingsChange = {
+  change(settings: ContainerSettings): ContainerSettings {
+    settings.THEME_MODE = "INVERT";
+    return settings;
+  }
+}
+
+const CHANGE_CONTAINER_MOUSE_LEAVE: IContainerSettingsChange = {
+  change(settings: ContainerSettings): ContainerSettings {
+    settings.THEME_MODE = "PARENT";
     return settings;
   }
 }
 
 const router = useRouter();
 
-function curPathName(): string{
-  return router.currentRoute.value.name as string;
-}
 const containerRef = ref(null);
+
+watch(() => router.currentRoute.value.name, (newName) => {
+  if (newName == props.name){
+    containerRef.value.applyChanges(CHANGE_CONTAINER_SELECTED);
+  } else {
+    containerRef.value.applyChanges(CHANGE_CONTAINER_UNSELECTED);
+  }
+});
 </script>
 
 <template>
   <RouterLink :to="{name: name, params: params}">
-    <Container :settings="curPathName() == name ? CHANGE_CONTAINER_SELECTED.change(CREATE_CONTAINER.create()) : CHANGE_CONTAINER_UNSELECTED.change(CREATE_CONTAINER.create())" ref="containerRef">
+    <Container :settings="CREATE_CONTAINER.create()"
+               ref="containerRef"
+               @mouseenter="containerRef.applyChanges(CHANGE_CONTAINER_MOUSE_ENTER)"
+               @mouseleave="containerRef.applyChanges(CHANGE_CONTAINER_MOUSE_LEAVE)"
+    >
       <slot name="icon" v-if="$slots.icon"></slot>
       <slot name="text" v-if="$slots.text"></slot>
     </Container>

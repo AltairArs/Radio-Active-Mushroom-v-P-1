@@ -16,6 +16,11 @@ const _settings = ref<ContainerSettings>(props.settings);
 
 function setParams(): void{
   if (component.value != null){
+    component.value.setAttribute("overrideThemeMode", false.toString());
+    component.value.setAttribute("overrideThemeColor", false.toString());
+    component.value.setAttribute("overrideContainerType", false.toString());
+    component.value.setAttribute("overrideSubContainerType", false.toString());
+
     let style = getComputedStyle(component.value);
 
     let __themeMode = style.getPropertyValue("--themeMode");
@@ -35,13 +40,18 @@ function setParams(): void{
   }
 }
 
+function applyChanges(changes: IContainerSettingsChange): void{
+  _settings.value = changes.change(_settings.value);
+  setParams();
+}
+
 nextTick(() =>{
   setParams();
 });
 
-function applyChanges(changes: IContainerSettingsChange): void{
-  _settings.value = changes.change(_settings.value);
-}
+defineExpose({
+  applyChanges
+})
 
 </script>
 

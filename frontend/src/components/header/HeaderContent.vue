@@ -24,6 +24,11 @@ const CREATE_CONTAINER: IContainerSettingsCreate = {
    <h1>RAM</h1>
    <NavButton name="main">
      <template #text>
+       Главная
+     </template>
+   </NavButton>
+   <NavButton name="register">
+     <template #text>
        Registration
      </template>
    </NavButton>

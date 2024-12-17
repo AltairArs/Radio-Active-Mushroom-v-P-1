@@ -45,7 +45,7 @@
  * @var {boolean} UNSELECTABLE - true, false | DEFAULT | true
  *
  * @var {string} THEME_COLOR - PARENT, ... | DEFAULT | PARENT
- * @var {string} THEME_MODE - DARK, LIGHT, PARENT | DEFAULT | PARENT
+ * @var {string} THEME_MODE - INVERT, DARK, LIGHT, PARENT | DEFAULT | PARENT
  * @var {string} CONTAINER_TYPE - PRIMARY, SECONDARY, TERTIARY, ERROR, NONE, NAVBAR, TOOLTIP, MENU, PARENT, AUTO | DEFAULT | PARENT
  * *************************
  * AUTO - type of container is determined on the basis of the parent:
@@ -171,6 +171,8 @@ class ColorSetSettings extends BackgroundSettings{
     public GEN__THEME_MODE(parentValue: string): string{
         if (this.THEME_MODE == "PARENT"){
             return parentValue;
+        } else if(this.THEME_MODE == "INVERT"){
+            return parentValue == "LIGHT" ? "DARK": "LIGHT";
         } else {
             return this.THEME_MODE;
         }
