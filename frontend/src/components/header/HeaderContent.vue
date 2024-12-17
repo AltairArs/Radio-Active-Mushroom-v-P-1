@@ -6,6 +6,7 @@ import {
   CHANGE_CONTAINER_SET_PADDING
 } from "../../container-pattern/base-changes.ts";
 import NavButton from "../buttons/NavButton.vue";
+import Icon from "../info/Icon.vue";
 
 const CREATE_CONTAINER: IContainerSettingsCreate = {
   create(): ContainerSettings {
@@ -28,6 +29,9 @@ const CREATE_CONTAINER: IContainerSettingsCreate = {
      </template>
    </NavButton>
    <NavButton name="register">
+     <template #icon>
+       <Icon name="arrow-right-to-bracket"/>
+     </template>
      <template #text>
        Registration
      </template>

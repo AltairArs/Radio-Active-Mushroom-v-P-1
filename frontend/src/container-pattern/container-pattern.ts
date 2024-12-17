@@ -43,6 +43,7 @@
  * @var {number} SHADOW_STRETCH - 0...inf | DEFAULT | 0
  * @var {string} SELF_ALIGNMENT - none, top-left, top, top-right, right, bottom-right, bottom, bottom-left, left, center | DEFAULT | none
  * @var {boolean} UNSELECTABLE - true, false | DEFAULT | true
+ * @var {boolean} FIT_CONTENT - true, false | DEFAULT | false
  *
  * @var {string} THEME_COLOR - PARENT, ... | DEFAULT | PARENT
  * @var {string} THEME_MODE - INVERT, DARK, LIGHT, PARENT | DEFAULT | PARENT
@@ -115,6 +116,7 @@ class MarginSettings extends ChildItemsSettings{
 
 class SelfAlignSettings extends MarginSettings{
     public SELF_ALIGNMENT: string = "none"
+    public FIT_CONTENT: boolean = false
 }
 
 class BackgroundSettings extends SelfAlignSettings{

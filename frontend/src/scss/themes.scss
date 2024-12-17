@@ -20,7 +20,7 @@
           "border": setLight($color, 20%),
           "mark": setLight($color, 35%),
           "shadow": setLight($color, 35%),
-          "icon": setLight($color, 20%),
+          "icon": rotate(setLight($color, 35%), 50deg),
           "back-1": $color,
           "back-2": setLight($color, 70%),
           "back-3": setLight($color, 85%)

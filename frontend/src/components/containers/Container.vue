@@ -14,6 +14,8 @@ const component = ref<Element | null>(null);
 
 const _settings = ref<ContainerSettings>(props.settings);
 
+const componentKey = ref(0);
+
 function setParams(): void{
   if (component.value != null){
     component.value.setAttribute("overrideThemeMode", false.toString());
@@ -40,8 +42,17 @@ function setParams(): void{
   }
 }
 
+function updateComponent(): void{
+  if (componentKey.value){
+    componentKey.value = 0;
+  } else {
+    componentKey.value = 1;
+  }
+}
+
 function applyChanges(changes: IContainerSettingsChange): void{
   _settings.value = changes.change(_settings.value);
+  updateComponent();
   setParams();
 }
 
@@ -50,7 +61,8 @@ nextTick(() =>{
 });
 
 defineExpose({
-  applyChanges
+  applyChanges,
+  updateComponent
 })
 
 </script>
@@ -61,8 +73,9 @@ defineExpose({
        :backgroundType="_settings.BACKGROUND_TYPE"
        :unselectableV="_settings.UNSELECTABLE"
        :selfAlign="_settings.SELF_ALIGNMENT"
+       :fitContent="_settings.FIT_CONTENT"
   >
-    <slot></slot>
+    <slot :key="componentKey"></slot>
   </div>
 </template>
 
@@ -73,6 +86,10 @@ div.container{
       calc(var(--margin) * v-bind(_settings.MARGIN_RIGHT))
       calc(var(--margin) * v-bind(_settings.MARGIN_BOTTOM))
       calc(var(--margin) * v-bind(_settings.MARGIN_LEFT));
+
+  &[fitContent=true]{
+    width: fit-content;
+  }
 
   &[selfAlign="top-left"]{
     margin: 0 auto auto 0;

@@ -1,9 +1,10 @@
 import {createRouter, createWebHistory} from "vue-router";
 import MainView from "./components/views/MainView.vue";
+import RegistrationView from "./components/views/RegistrationView.vue";
 
 const routes = [
     {
-        path: "",
+        path: "/",
         name: "main",
         component: MainView,
         meta: {
@@ -13,7 +14,7 @@ const routes = [
     {
         path: "/accounts/register",
         name: "register",
-        component: MainView,
+        component: RegistrationView,
         meta: {
             title: "Регистрация"
         }

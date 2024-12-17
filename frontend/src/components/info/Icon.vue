@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import Container from "../containers/Container.vue";
 import {ContainerSettings, IContainerSettingsCreate} from "../../container-pattern/container-pattern.ts";
-import {CHANGE_CONTAINER_SET_PADDING} from "../../container-pattern/base-changes.ts";
 
 defineProps({
   /**
@@ -64,7 +63,8 @@ defineProps({
 const CREATE_CONTAINER: IContainerSettingsCreate = {
   create(): ContainerSettings {
     let c = new ContainerSettings();
-    c = CHANGE_CONTAINER_SET_PADDING(1).change(c);
+    c.PADDING_RIGHT = 1;
+    c.BACKGROUND_TYPE = "none";
     return c;
   }
 }
