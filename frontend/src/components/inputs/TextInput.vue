@@ -26,6 +26,9 @@ defineProps({
   }
 });
 
+defineEmits<{
+  input: [value: string]
+}>();
 </script>
 
 <template>
@@ -34,7 +37,7 @@ defineProps({
       <Icon name="t"/>
     </template>
     <template #textInput>
-      <input type="text" :value="initialValue" :placeholder="placeholder ? placeholder : label">
+      <input type="text" :value="initialValue" :placeholder="placeholder ? placeholder : label" @input="(event) => $emit('input', event.target.value)">
     </template>
   </BaseInput>
 </template>

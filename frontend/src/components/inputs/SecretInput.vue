@@ -55,6 +55,9 @@ function changeShow(){
   }
 }
 
+defineEmits<{
+  input: [value: string]
+}>();
 </script>
 
 <template>
@@ -67,7 +70,7 @@ function changeShow(){
         <Icon name="eye" _style="regular" v-if="!show" @click="changeShow()"/>
         <Icon name="eye-slash" _style="regular" v-if="show" @click="changeShow()"/>
       </Container>
-      <input ref="input" type="password" :value="initialValue" class="text-input" :placeholder="placeholder ? placeholder : label">
+      <input ref="input" type="password" :value="initialValue" :placeholder="placeholder ? placeholder : label" @input="(event) => $emit('input', event.target.value)">
     </template>
   </BaseInput>
 </template>

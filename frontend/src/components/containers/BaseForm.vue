@@ -51,34 +51,36 @@ const mainContainerRef = ref(null);
 </script>
 
 <template>
-  <Container :settings="CREATE_CONTAINER_MAIN.create()" ref="mainContainerRef">
-    <slot name="titleText" v-if="$slots.titleText"></slot>
-    <Divider v-if="$slots.titleText"/>
-    <slot name="inputs" v-if="$slots.inputs"></slot>
-    <Divider/>
-    <Container :settings="CREATE_CONTAINER_HORIZONTAL.create()" >
-      <Container :settings="CREATE_CONTAINER_RESET_BUTTON.create()">
-        <SimpleButton @click="mainContainerRef.updateComponent()">
-          <template #icon>
-            <Icon name="arrows-rotate"/>
-          </template>
-          <template #text>
-            Очистить
-          </template>
-        </SimpleButton>
-      </Container>
-      <Container :settings="CREATE_CONTAINER_SUBMIT_BUTTON.create()">
-        <SimpleButton>
-          <template #icon v-if="$slots.buttonIcon">
-            <slot name="buttonIcon"></slot>
-          </template>
-          <template #text v-if="$slots.buttonText">
-            <slot name="buttonText"></slot>
-          </template>
-        </SimpleButton>
+  <form>
+    <Container :settings="CREATE_CONTAINER_MAIN.create()" ref="mainContainerRef">
+      <slot name="titleText" v-if="$slots.titleText"></slot>
+      <Divider v-if="$slots.titleText"/>
+      <slot name="inputs" v-if="$slots.inputs"></slot>
+      <Divider/>
+      <Container :settings="CREATE_CONTAINER_HORIZONTAL.create()" >
+        <Container :settings="CREATE_CONTAINER_RESET_BUTTON.create()">
+          <SimpleButton @click="mainContainerRef.updateComponent()">
+            <template #icon>
+              <Icon name="arrows-rotate"/>
+            </template>
+            <template #text>
+              Очистить
+            </template>
+          </SimpleButton>
+        </Container>
+        <Container :settings="CREATE_CONTAINER_SUBMIT_BUTTON.create()">
+          <SimpleButton>
+            <template #icon v-if="$slots.buttonIcon">
+              <slot name="buttonIcon"></slot>
+            </template>
+            <template #text v-if="$slots.buttonText">
+              <slot name="buttonText"></slot>
+            </template>
+          </SimpleButton>
+        </Container>
       </Container>
     </Container>
-  </Container>
+  </form>
 </template>
 
 <style scoped>

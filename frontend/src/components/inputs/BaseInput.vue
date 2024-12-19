@@ -58,7 +58,7 @@ const CHANGE_CONTAINER_NOT_LABEL: IContainerSettingsChange = {
   <Container :settings="label ? CREATE_CONTAINER_INPUT.create() : CHANGE_CONTAINER_NOT_LABEL.change(CREATE_CONTAINER_INPUT.create())" v-if="$slots.textInput">
     <slot name="textInput"></slot>
   </Container>
-  <slot name="customInput" v-if="$slots.customInput"></slot>
+  <slot name="customInput" v-if="$slots.customInput" :labelExists="!!label"></slot>
 </template>
 
 <style scoped lang="scss">
