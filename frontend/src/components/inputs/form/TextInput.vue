@@ -1,0 +1,119 @@
+<script setup lang="ts">
+import Container from "../../containers/Container.vue";
+import Icon from "../../info/Icon.vue";
+import Addition from "../../info/Addition.vue";
+import {
+  IContainerSettingsCreate,
+  ContainerSettings,
+  IContainerSettingsChange
+} from "../../../container-pattern/container-pattern.ts";
+import {
+  CHANGE_CONTAINER_SET_BORDER_RADIUS,
+  CHANGE_CONTAINER_SET_BORDER_RADIUS_TOP, CHANGE_CONTAINER_SET_BORDER_STYLE, CHANGE_CONTAINER_SET_BORDER_WIDTH,
+  CHANGE_CONTAINER_SET_PADDING
+} from "../../../container-pattern/base-changes.ts";
+
+defineProps({
+  initialValue: {
+    type: String,
+    required: false,
+    default: ""
+  },
+  label: {
+    type: String,
+    required: false,
+    default: ""
+  },
+  isNecessary: {
+    type: Boolean,
+    required: false,
+    default: false
+  }
+});
+
+const CREATE_CONTAINER_LABEL: IContainerSettingsCreate = {
+  create(): ContainerSettings {
+    let c = new ContainerSettings();
+    c.HORIZONTAL_CHILD_LOCATION = true;
+    c = CHANGE_CONTAINER_SET_BORDER_RADIUS_TOP(1).change(c);
+    c.SUB_CONTAINER_TYPE = "INPUT";
+    c.BORDER_RIGHT_STYLE = "solid";
+    c.BORDER_TOP_STYLE = "solid";
+    c.BORDER_LEFT_STYLE = "solid";
+    c.BORDER_TOP_WIDTH = 1;
+    c.BORDER_LEFT_WIDTH = 1;
+    c.BORDER_RIGHT_WIDTH = 1;
+    c.FIT_CONTENT = true;
+    c = CHANGE_CONTAINER_SET_PADDING(1).change(c);
+    return c;
+  }
+}
+
+const CREATE_CONTAINER_INPUT: IContainerSettingsCreate = {
+  create(): ContainerSettings {
+    let c = new ContainerSettings();
+    c.SUB_CONTAINER_TYPE = "INPUT";
+    c.MARGIN_BOTTOM = 2;
+    c = CHANGE_CONTAINER_SET_PADDING(1).change(c);
+    c = CHANGE_CONTAINER_SET_BORDER_STYLE("solid").change(c);
+    c = CHANGE_CONTAINER_SET_BORDER_WIDTH(1).change(c);
+    c = CHANGE_CONTAINER_SET_BORDER_RADIUS(1).change(c);
+    c.BORDER_RADIUS_TOP_LEFT_ANGLE = 0;
+    return c;
+  }
+}
+
+const CREATE_CONTAINER_UNNECESSARY: IContainerSettingsCreate = {
+  create(): ContainerSettings {
+    let c = new ContainerSettings();
+    c.MARGIN_LEFT = 1;
+    return c;
+  }
+}
+
+const CHANGE_CONTAINER_NOT_LABEL: IContainerSettingsChange = {
+  change(settings: ContainerSettings): ContainerSettings {
+    settings.BORDER_RADIUS_TOP_LEFT_ANGLE = 1;
+    return settings;
+  }
+}
+
+</script>
+
+<template>
+  <Container :settings="CREATE_CONTAINER_LABEL.create()" v-if="label" class="input-label">
+    <Icon name="t"/>
+    <text>{{ label }}</text>
+    <Icon name="asterisk" size="xs" v-if="isNecessary"/>
+    <Container :settings="CREATE_CONTAINER_UNNECESSARY.create()">
+      <Addition text="Не обязательно" v-if="!isNecessary"/>
+    </Container>
+  </Container>
+  <Container :settings="label ? CREATE_CONTAINER_INPUT.create() : CHANGE_CONTAINER_NOT_LABEL.change(CREATE_CONTAINER_INPUT.create())">
+    <input type="text" :value="initialValue" class="text-input">
+  </Container>
+</template>
+
+<style scoped>
+.input-label{
+  transform: translateY(var(--border-width));
+}
+input.text-input{
+  width: 100%;
+  border-radius: var(--border-radius);
+  padding: var(--padding);
+  background-color: var(--c-text);
+  color: var(--c-back-1);
+  border-color: transparent;
+  &::placeholder{
+    color: var(--c-back-2);
+  }
+  &::selection{
+    background-color: var(--c-back-1);
+    color: var(--c-text);
+  }
+  &:focus{
+    outline: none;
+  }
+}
+</style>

@@ -52,9 +52,7 @@ const mainContainerRef = ref(null);
 
 <template>
   <Container :settings="CREATE_CONTAINER_MAIN.create()" ref="mainContainerRef">
-    <Container :settings="CREATE_CONTAINER_HORIZONTAL.create()">
-      <slot name="titleText" v-if="$slots.titleText"></slot>
-    </Container>
+    <slot name="titleText" v-if="$slots.titleText"></slot>
     <Divider v-if="$slots.titleText"/>
     <slot name="inputs" v-if="$slots.inputs"></slot>
     <Divider/>

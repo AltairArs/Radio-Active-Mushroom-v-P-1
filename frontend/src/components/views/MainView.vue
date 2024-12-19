@@ -25,8 +25,6 @@ const CREATE_CONTAINER_2: IContainerSettingsCreate = {
     c.CONTAINER_TYPE = "AUTO";
     c = CHANGE_CONTAINER_SET_PADDING(1).change(c);
     c = CHANGE_CONTAINER_SET_BORDER_RADIUS(1).change(c);
-    c = CHANGE_CONTAINER_SET_BORDER_STYLE("solid").change(c);
-    c = CHANGE_CONTAINER_SET_BORDER_WIDTH(1).change(c);
     c.SELF_ALIGNMENT = "top";
     return c;
   }

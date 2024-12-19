@@ -79,3 +79,13 @@ export function CHANGE_CONTAINER_SET_BORDER_RADIUS_BOTTOM(value: number): IConta
         }
     }
 }
+
+export function CHANGE_CONTAINER_SET_BORDER_RADIUS_TOP(value: number): IContainerSettingsChange{
+    return {
+        change(settings: ContainerSettings): ContainerSettings {
+            settings.BORDER_RADIUS_TOP_RIGHT_ANGLE = value;
+            settings.BORDER_RADIUS_TOP_LEFT_ANGLE = value;
+            return settings;
+        }
+    }
+}
