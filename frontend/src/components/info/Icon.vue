@@ -26,7 +26,7 @@ defineProps({
    *
    * @default solid
    */
-  style: {
+  _style: {
     type: String,
     default: "solid",
     required: false
@@ -73,7 +73,7 @@ const CREATE_CONTAINER: IContainerSettingsCreate = {
 
 <template>
   <Container :settings="CREATE_CONTAINER.create()" class="icon">
-    <i :class="'fa-' + pack + ' fa-' + style + ' fa-' + name + ' fa-' + size"></i>
+    <i :class="'fa-' + pack + ' fa-' + _style + ' fa-' + name + ' fa-' + size"></i>
   </Container>
 </template>
 

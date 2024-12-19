@@ -28,6 +28,11 @@ defineProps({
     type: Boolean,
     required: false,
     default: false
+  },
+  placeholder: {
+    type: String,
+    required: false,
+    default: ""
   }
 });
 
@@ -90,7 +95,7 @@ const CHANGE_CONTAINER_NOT_LABEL: IContainerSettingsChange = {
     </Container>
   </Container>
   <Container :settings="label ? CREATE_CONTAINER_INPUT.create() : CHANGE_CONTAINER_NOT_LABEL.change(CREATE_CONTAINER_INPUT.create())">
-    <input type="text" :value="initialValue" class="text-input">
+    <input type="text" :value="initialValue" class="text-input" :placeholder="placeholder ? placeholder : label">
   </Container>
 </template>
 

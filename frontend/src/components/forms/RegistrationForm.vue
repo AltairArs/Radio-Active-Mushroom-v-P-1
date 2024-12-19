@@ -4,6 +4,7 @@ import Icon from "../info/Icon.vue";
 import TextInput from "../inputs/TextInput.vue";
 import SlugInput from "../inputs/SlugInput.vue";
 import EmailInput from "../inputs/EmailInput.vue";
+import SecretInput from "../inputs/SecretInput.vue";
 </script>
 
 <template>
@@ -24,6 +25,8 @@ import EmailInput from "../inputs/EmailInput.vue";
       <SlugInput label="Slug"/>
       <EmailInput label="Email" is-necessary/>
       <EmailInput label="Email"/>
+      <SecretInput label="Password" is-necessary/>
+      <SecretInput label="Password"/>
     </template>
   </BaseForm>
 </template>
