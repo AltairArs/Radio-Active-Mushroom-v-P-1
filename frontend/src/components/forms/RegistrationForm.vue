@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import BaseForm from "../containers/BaseForm.vue";
 import Icon from "../info/Icon.vue";
-import TextInput from "../inputs/form/TextInput.vue";
+import TextInput from "../inputs/TextInput.vue";
+import SlugInput from "../inputs/SlugInput.vue";
+import EmailInput from "../inputs/EmailInput.vue";
 </script>
 
 <template>
@@ -16,10 +18,12 @@ import TextInput from "../inputs/form/TextInput.vue";
       Зарегистрироваться
     </template>
     <template #inputs>
-      <TextInput/>
-      <TextInput initial-value="initial"/>
       <TextInput label="Text" is-necessary/>
       <TextInput label="Text"/>
+      <SlugInput label="Slug" is-necessary/>
+      <SlugInput label="Slug"/>
+      <EmailInput label="Email" is-necessary/>
+      <EmailInput label="Email"/>
     </template>
   </BaseForm>
 </template>

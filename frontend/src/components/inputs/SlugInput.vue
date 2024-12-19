@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import Container from "../../containers/Container.vue";
-import Icon from "../../info/Icon.vue";
-import Addition from "../../info/Addition.vue";
+import Container from "../containers/Container.vue";
+import Icon from "../info/Icon.vue";
+import Addition from "../info/Addition.vue";
 import {
   IContainerSettingsCreate,
   ContainerSettings,
   IContainerSettingsChange
-} from "../../../container-pattern/container-pattern.ts";
+} from "../../container-pattern/container-pattern.ts";
 import {
   CHANGE_CONTAINER_SET_BORDER_RADIUS,
   CHANGE_CONTAINER_SET_BORDER_RADIUS_TOP, CHANGE_CONTAINER_SET_BORDER_STYLE, CHANGE_CONTAINER_SET_BORDER_WIDTH,
   CHANGE_CONTAINER_SET_PADDING
-} from "../../../container-pattern/base-changes.ts";
+} from "../../container-pattern/base-changes.ts";
 
 defineProps({
   initialValue: {
@@ -82,10 +82,10 @@ const CHANGE_CONTAINER_NOT_LABEL: IContainerSettingsChange = {
 
 <template>
   <Container :settings="CREATE_CONTAINER_LABEL.create()" v-if="label" class="input-label">
-    <Icon name="t"/>
+    <Icon name="font"/>
     <text>{{ label }}</text>
-    <Icon name="asterisk" size="xs" v-if="isNecessary"/>
     <Container :settings="CREATE_CONTAINER_UNNECESSARY.create()">
+      <Icon name="asterisk" size="xs" v-if="isNecessary"/>
       <Addition text="Не обязательно" v-if="!isNecessary"/>
     </Container>
   </Container>

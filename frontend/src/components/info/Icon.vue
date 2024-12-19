@@ -64,7 +64,6 @@ const CREATE_CONTAINER: IContainerSettingsCreate = {
   create(): ContainerSettings {
     let c = new ContainerSettings();
     c.PADDING_RIGHT = 1;
-    c.PADDING_LEFT = 1;
     c.BACKGROUND_TYPE = "none";
     return c;
   }
