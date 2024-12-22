@@ -33,7 +33,7 @@ const CREATE_CONTAINER: IContainerSettingsCreate = {
        <Icon name="arrow-right-to-bracket"/>
      </template>
      <template #text>
-       Registration
+       Регистрация
      </template>
    </NavButton>
  </Container>

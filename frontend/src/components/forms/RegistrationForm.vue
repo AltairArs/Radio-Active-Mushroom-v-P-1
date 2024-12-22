@@ -5,26 +5,6 @@ import TextInput from "../inputs/TextInput.vue";
 import SlugInput from "../inputs/SlugInput.vue";
 import EmailInput from "../inputs/EmailInput.vue";
 import SecretInput from "../inputs/SecretInput.vue";
-import { ref, nextTick } from 'vue';
-import FormInput from "../inputs/form/FormInput.vue";
-
-const ti = ref(null);
-const si = ref(null);
-const ei = ref(null);
-const pi = ref(null);
-
-function initForm(): void{
-  ti.value.setDependents([pi]);
-  si.value.setDependents([pi]);
-
-  pi.value.setDependencies(new Map([[si, new RegExp('[0-9]')], [ti, new RegExp('[a-z]+')]]));
-
-  pi.value.notifyFromDependency();
-}
-
-nextTick(() => {
-  initForm();
-})
 </script>
 
 <template>
@@ -39,18 +19,12 @@ nextTick(() => {
       Зарегистрироваться
     </template>
     <template #inputs>
-      <FormInput ref="ti">
-        <TextInput label="Text" @input="(value) => ti.notifyDependents(value)"/>
-      </FormInput>
-      <FormInput ref="si">
-        <SlugInput label="Slug" @input="(value) => si.notifyDependents(value)"/>
-      </FormInput>
-      <FormInput ref="ei">
-        <EmailInput label="Email"/>
-      </FormInput>
-      <FormInput ref="pi">
-        <SecretInput label="Password"/>
-      </FormInput>
+      <EmailInput label="Email" is-necessary/>
+      <SlugInput label="Ник" is-necessary/>
+      <SecretInput label="Пароль" is-necessary/>
+      <SecretInput label="Повторите пароль" is-necessary/>
+      <TextInput label="Имя"/>
+      <TextInput label="Фамилия"/>
     </template>
   </BaseForm>
 </template>

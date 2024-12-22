@@ -48,6 +48,8 @@ const CREATE_CONTAINER_SUBMIT_BUTTON: IContainerSettingsCreate = {
 
 const mainContainerRef = ref(null);
 
+defineEmits(['submit']);
+
 </script>
 
 <template>
@@ -69,7 +71,7 @@ const mainContainerRef = ref(null);
           </SimpleButton>
         </Container>
         <Container :settings="CREATE_CONTAINER_SUBMIT_BUTTON.create()">
-          <SimpleButton>
+          <SimpleButton @click="(event) => $emit('submit')">
             <template #icon v-if="$slots.buttonIcon">
               <slot name="buttonIcon"></slot>
             </template>

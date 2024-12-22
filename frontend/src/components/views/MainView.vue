@@ -51,7 +51,7 @@ const CREATE_CONTAINER_HORIZONTAL_2: IContainerSettingsCreate = {
     <Container :settings="CREATE_CONTAINER_2.create()">
       <h1>RadioActive Mushroom</h1>
       <Divider/>
-      <h2>We offer a simple and easy-to-use solution for database development!</h2>
+      <h2>Мы предлагаем простое и удобное решение для проектирования баз данных!</h2>
     </Container>
   </Container>
 
@@ -59,32 +59,32 @@ const CREATE_CONTAINER_HORIZONTAL_2: IContainerSettingsCreate = {
     <Container :settings="CREATE_CONTAINER_2.create()">
       <Container :settings="CREATE_CONTAINER_HORIZONTAL_1.create()">
         <Icon name="bolt"/>
-        <h2>Easy generation code</h2>
+        <h2>Простая генерация кода</h2>
       </Container>
       <Divider/>
       <Container :settings="CREATE_CONTAINER_HORIZONTAL_2.create()">
         <Icon name="book"/>
-        <h3>for libraries</h3>
+        <h3>для библиотек</h3>
       </Container>
       <Container :settings="CREATE_CONTAINER_HORIZONTAL_2.create()">
         <Icon name="database"/>
-        <h3>for databases</h3>
+        <h3>для баз данных</h3>
       </Container>
     </Container>
     <Container :settings="CREATE_CONTAINER_2.create()">
       <Container :settings="CREATE_CONTAINER_HORIZONTAL_1.create()">
         <Icon name="pen"/>
-        <h2>Easy editing in 2 clicks</h2>
+        <h2>Простое редактирование в 2 клика</h2>
       </Container>
       <Divider/>
     </Container>
     <Container :settings="CREATE_CONTAINER_2.create()">
       <Container :settings="CREATE_CONTAINER_HORIZONTAL_1.create()">
         <Icon name="droplet"/>
-        <h2>Variety of themes</h2>
+        <h2>Разнообразие тем</h2>
       </Container>
       <Divider/>
-      <h3>11 possible colours in total</h3>
+      <h3>11 возможных цветов</h3>
     </Container>
   </Container>
 </template>
