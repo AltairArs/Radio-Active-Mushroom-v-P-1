@@ -180,6 +180,7 @@ http://localhost:8080/
     <tr>
         <th colspan="3">Сервис</th>
         <th colspan="2">Порт</th>
+        <th rowspan="2">Внешний путь (для Gateway)</th>
     </tr>
     <tr>
         <th>Описание</th>
@@ -213,6 +214,7 @@ http://localhost:8080/
         <td>Infrastructure</td>
         <td>8761</td>
         <td></td>
+        <td>/eureka</td>
     </tr>
     <tr align="center">
         <td>Redis</td>
@@ -234,6 +236,7 @@ http://localhost:8080/
         <td>Work</td>
         <td>8080</td>
         <td></td>
+        <td>/api/authentication-service</td>
     </tr>
 </table>
 

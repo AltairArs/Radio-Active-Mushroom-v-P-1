@@ -17,7 +17,6 @@ const CREATE_CONTAINER_MAIN: IContainerSettingsCreate = {
     c.SELF_ALIGNMENT = "top";
     c = CHANGE_CONTAINER_SET_PADDING(1).change(c);
     c = CHANGE_CONTAINER_SET_BORDER_RADIUS(1).change(c);
-    c.FIT_CONTENT = true;
     return c;
   }
 }

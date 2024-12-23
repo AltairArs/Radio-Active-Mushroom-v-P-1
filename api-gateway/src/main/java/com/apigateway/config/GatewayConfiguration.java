@@ -16,10 +16,25 @@ public class GatewayConfiguration {
         return GatewayRouterFunctions
                 .route("eureka-service")
                 .route(
-                        RequestPredicates.path("/**"),
+                        RequestPredicates.path("/eureka/**"),
                         HandlerFunctions.http("http://discovery-service:8761")
                 )
-                //.before(BeforeFilterFunctions.rewritePath("/eureka", "/"))
                 .build();
+    }
+
+    private RouterFunction<ServerResponse> genRoute(String serviceName){
+        return GatewayRouterFunctions
+                .route(serviceName)
+                .route(
+                        RequestPredicates.path("/api/" + serviceName),
+                        HandlerFunctions.http("http://" + serviceName + ":8080")
+                )
+                .before(BeforeFilterFunctions.rewritePath("/api/" + serviceName, "/graphql"))
+                .build();
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> authentication(){
+        return genRoute("authentication-service");
     }
 }

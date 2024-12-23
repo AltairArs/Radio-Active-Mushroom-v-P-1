@@ -32,6 +32,7 @@ const CREATE_CONTAINER_LABEL: IContainerSettingsCreate = {
     c.BORDER_TOP_WIDTH = 1;
     c.BORDER_LEFT_WIDTH = 1;
     c.BORDER_RIGHT_WIDTH = 1;
+    c.MARGIN_TOP = 2;
     c.FIT_CONTENT = true;
     c = CHANGE_CONTAINER_SET_PADDING(1).change(c);
     return c;

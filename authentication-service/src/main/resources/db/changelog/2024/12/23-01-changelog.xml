@@ -5,16 +5,16 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd"
         objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
-    <changeSet id="1733026704334-1" author="Сергей">
+    <changeSet id="1734923696390-1" author="Сергей">
         <createSequence incrementBy="50" sequenceName="base_permission_enity_seq" startValue="1"/>
     </changeSet>
-    <changeSet id="1733026704334-2" author="Сергей">
+    <changeSet id="1734923696390-2" author="Сергей">
         <createSequence incrementBy="50" sequenceName="user_entity_seq" startValue="1"/>
     </changeSet>
-    <changeSet id="1733026704334-3" author="Сергей">
+    <changeSet id="1734923696390-3" author="Сергей">
         <createSequence incrementBy="50" sequenceName="user_special_permission_entity_seq" startValue="1"/>
     </changeSet>
-    <changeSet id="1733026704334-4" author="Сергей">
+    <changeSet id="1734923696390-4" author="Сергей">
         <createTable tableName="base_permission_enity">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_base_permission_enity"/>
@@ -27,7 +27,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet id="1733026704334-5" author="Сергей">
+    <changeSet id="1734923696390-5" author="Сергей">
         <createTable tableName="user_entity">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user_entity"/>
@@ -65,7 +65,7 @@
             <column name="verification_token" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet id="1733026704334-6" author="Сергей">
+    <changeSet id="1734923696390-6" author="Сергей">
         <createTable tableName="user_special_permission_entity">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user_special_permission_entity"/>
@@ -78,21 +78,21 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet id="1733026704334-7" author="Сергей">
-        <addUniqueConstraint columnNames="user_id" constraintName="uc_aa55eb4908a809e8a9f2b08d2"
-                             tableName="user_special_permission_entity"/>
+    <changeSet id="1734923696390-7" author="Сергей">
+        <addUniqueConstraint columnNames="user_id, user_special_permission"
+                             constraintName="uc_105768a136400c3f649eac570" tableName="user_special_permission_entity"/>
     </changeSet>
-    <changeSet id="1733026704334-8" author="Сергей">
-        <addUniqueConstraint columnNames="" constraintName="uc_fd655c828420b88d547f6e919"
-                             tableName="base_permission_enity"/>
+    <changeSet id="1734923696390-8" author="Сергей">
+        <addUniqueConstraint columnNames="user_role, user_special_permission"
+                             constraintName="uc_36b666fe4f72dd3807468f7b5" tableName="base_permission_enity"/>
     </changeSet>
-    <changeSet id="1733026704334-9" author="Сергей">
+    <changeSet id="1734923696390-9" author="Сергей">
         <addUniqueConstraint columnNames="email" constraintName="uc_user_entity_email" tableName="user_entity"/>
     </changeSet>
-    <changeSet id="1733026704334-10" author="Сергей">
+    <changeSet id="1734923696390-10" author="Сергей">
         <addUniqueConstraint columnNames="nickname" constraintName="uc_user_entity_nickname" tableName="user_entity"/>
     </changeSet>
-    <changeSet id="1733026704334-11" author="Сергей">
+    <changeSet id="1734923696390-11" author="Сергей">
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_special_permission_entity"
                                  constraintName="FK_USER_SPECIAL_PERMISSION_ENTITY_ON_USER" referencedColumnNames="id"
                                  referencedTableName="user_entity"/>

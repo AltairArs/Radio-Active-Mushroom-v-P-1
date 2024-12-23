@@ -1,6 +1,9 @@
 server:
   port: 8761
+  contextPath: /eureka
 eureka:
+  dashboard:
+    path: /eureka
   client:
     register-with-eureka: true
     fetch-registry: false

@@ -30,7 +30,6 @@ const CREATE_CONTAINER_INPUT: IContainerSettingsCreate = {
   create(): ContainerSettings {
     let c = new ContainerSettings();
     c.SUB_CONTAINER_TYPE = "INPUT";
-    c.MARGIN_BOTTOM = 2;
     c = CHANGE_CONTAINER_SET_PADDING(1).change(c);
     c = CHANGE_CONTAINER_SET_BORDER_STYLE("solid").change(c);
     c = CHANGE_CONTAINER_SET_BORDER_WIDTH(1).change(c);

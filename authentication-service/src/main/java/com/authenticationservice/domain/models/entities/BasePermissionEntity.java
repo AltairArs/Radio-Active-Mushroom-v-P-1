@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @Table(
         name = "base_permission_enity",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"userRole", "userSpecialPermission"})}
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"user_role", "user_special_permission"})}
 )
 public class BasePermissionEntity {
     @Id

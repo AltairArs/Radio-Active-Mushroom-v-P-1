@@ -5,6 +5,17 @@ import TextInput from "../inputs/TextInput.vue";
 import SlugInput from "../inputs/SlugInput.vue";
 import EmailInput from "../inputs/EmailInput.vue";
 import SecretInput from "../inputs/SecretInput.vue";
+import { ref } from 'vue';
+
+const inputs = {
+  email: ref(null),
+  nickname: ref(null),
+  password: ref(null),
+  confirmPassword: ref(null),
+  name: ref(null),
+  surname: ref(null)
+}
+
 </script>
 
 <template>
@@ -19,12 +30,12 @@ import SecretInput from "../inputs/SecretInput.vue";
       Зарегистрироваться
     </template>
     <template #inputs>
-      <EmailInput label="Email" is-necessary/>
-      <SlugInput label="Ник" is-necessary/>
-      <SecretInput label="Пароль" is-necessary/>
-      <SecretInput label="Повторите пароль" is-necessary/>
-      <TextInput label="Имя"/>
-      <TextInput label="Фамилия"/>
+      <EmailInput :ref="inputs.email" label="Email" is-necessary/>
+      <SlugInput :ref="inputs.nickname" label="Ник" is-necessary/>
+      <SecretInput :ref="inputs.password" label="Пароль" is-necessary/>
+      <SecretInput :ref="inputs.confirmPassword" label="Повторите пароль" is-necessary/>
+      <TextInput :ref="inputs.name" label="Имя"/>
+      <TextInput :ref="inputs.surname" label="Фамилия"/>
     </template>
   </BaseForm>
 </template>
