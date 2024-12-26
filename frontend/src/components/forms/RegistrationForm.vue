@@ -6,20 +6,48 @@ import SlugInput from "../inputs/SlugInput.vue";
 import EmailInput from "../inputs/EmailInput.vue";
 import SecretInput from "../inputs/SecretInput.vue";
 import { ref } from 'vue';
+import ListSimpleErrorBlocks from "../info/ListSimpleErrorBlocks.vue";
 
 const inputs = {
-  email: ref(null),
-  nickname: ref(null),
-  password: ref(null),
-  confirmPassword: ref(null),
-  name: ref(null),
-  surname: ref(null)
+  email: {
+    ref: ref(null),
+    errors: []
+  },
+  nickname: {
+    ref: ref(null),
+    errors: []
+  },
+  password: {
+    ref: ref(null),
+    errors: []
+  },
+  confirmPassword: {
+    ref: ref(null),
+    errors: []
+  },
+  name: {
+    ref: ref(null),
+    errors: []
+  },
+  surname: {
+    ref: ref(null),
+    errors: []
+  }
+}
+
+function submit(){
+  console.log(inputs);
+  if (inputs.password.ref.value.getValue() != inputs.confirmPassword.ref.value.getValue()){
+    inputs.confirmPassword.errors = ["Пароли должны совпадать"];
+  } else {
+    inputs.confirmPassword.errors = [];
+  }
 }
 
 </script>
 
 <template>
-  <BaseForm>
+  <BaseForm @submit="submit">
     <template #buttonIcon>
       <Icon name="arrow-right-to-bracket"/>
     </template>
@@ -30,12 +58,23 @@ const inputs = {
       Зарегистрироваться
     </template>
     <template #inputs>
-      <EmailInput :ref="inputs.email" label="Email" is-necessary/>
-      <SlugInput :ref="inputs.nickname" label="Ник" is-necessary/>
-      <SecretInput :ref="inputs.password" label="Пароль" is-necessary/>
-      <SecretInput :ref="inputs.confirmPassword" label="Повторите пароль" is-necessary/>
-      <TextInput :ref="inputs.name" label="Имя"/>
-      <TextInput :ref="inputs.surname" label="Фамилия"/>
+      <EmailInput label="Email" is-necessary/>
+      <ListSimpleErrorBlocks :errors="inputs.email.errors"/>
+
+      <SlugInput label="Ник" is-necessary/>
+      <ListSimpleErrorBlocks :errors="inputs.nickname.errors"/>
+
+      <SecretInput label="Пароль" is-necessary/>
+      <ListSimpleErrorBlocks :errors="inputs.password.errors"/>
+
+      <SecretInput label="Повторите пароль" is-necessary/>
+      <ListSimpleErrorBlocks :errors="inputs.confirmPassword.errors"/>
+
+      <TextInput label="Имя"/>
+      <ListSimpleErrorBlocks :errors="inputs.name.errors"/>
+
+      <TextInput label="Фамилия"/>
+      <ListSimpleErrorBlocks :errors="inputs.surname.errors"/>
     </template>
   </BaseForm>
 </template>

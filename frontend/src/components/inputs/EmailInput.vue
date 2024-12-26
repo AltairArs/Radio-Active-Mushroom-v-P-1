@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import { ref } from 'vue';
 import BaseInput from "./BaseInput.vue";
 import Icon from "../info/Icon.vue";
 
@@ -29,6 +29,16 @@ defineProps({
 defineEmits<{
   input: [value: string]
 }>();
+
+const input = ref(null);
+
+function getValue(){
+  return input.value?.value;
+}
+
+defineExpose({
+  getValue
+})
 </script>
 
 <template>
@@ -37,7 +47,7 @@ defineEmits<{
       <Icon name="at"/>
     </template>
     <template #textInput>
-      <input type="text" :value="initialValue" :placeholder="placeholder ? placeholder : label" @input="(event) => $emit('input', event.target.value)">
+      <input type="text" ref="input" :value="initialValue" :placeholder="placeholder ? placeholder : label" @input="(event) => $emit('input', event.target.value)">
     </template>
   </BaseInput>
 </template>

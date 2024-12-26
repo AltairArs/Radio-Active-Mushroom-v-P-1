@@ -58,6 +58,14 @@ function changeShow(){
 defineEmits<{
   input: [value: string]
 }>();
+
+function getValue(){
+  return input.value?.value;
+}
+
+defineExpose({
+  getValue
+})
 </script>
 
 <template>
