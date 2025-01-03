@@ -5,12 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "__deletedBuildCommandFirstPart__DONT_LAUNCH":  "vue-tsc -b && ",
+    "__deletedBuildCommandFirstPart__DONT_LAUNCH": "vue-tsc -b && ",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.5.13"
+    "@apollo/client": "^3.12.4",
+    "graphql": "^16.10.0",
+    "vue": "^3.5.13",
+    "vue-apollo": "^3.1.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",
